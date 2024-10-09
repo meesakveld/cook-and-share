@@ -2,26 +2,349 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@layer base {
+	:root {
+		/* FONTS */
+		--font-manuka: 'Manuka', sans-serif;
+		--font-manuka-condensed: 'Manuka Condensed', sans-serif;
+		--font-manuka-slab: 'Manuka Slab', sans-serif;
+		--font-open-sans-condensed: 'Open Sans Condensed', sans-serif;
+
+		/* COLORS */
+		--color-red: 237, 27, 47;
+		--color-beige: 255, 251, 231;
+		--color-black: 31, 31, 31;
+		--color-gray: 217, 217, 217;
+	}
+
+	html {
+		background-color: rgb(var(--color-beige));
+		font-family: var(--font-open-sans-condensed);
+		color: rgb(var(--color-black));
+		font-size: clamp(12.8px, 1.25vw, 1.375rem);
+		font-weight: 600;
+	}
+
+	/* —————————————— FONTS —————————————— */
+	/* OPEN SANS CONDENSED 
+		300 for Light,
+		400 for Regular,
+		500 for Medium,
+		600 for SemiBold,
+		700 for Bold,
+		800 for ExtraBold.
+	*/
+	@font-face {
+		font-family: 'Open Sans Condensed';
+		src: url('/public/fonts/Open Sans Condensed Light.woff2') format('woff2'),
+			url('/public/fonts/Open Sans Condensed Light.woff') format('woff');
+		font-weight: 300;
+		font-style: normal;
+		font-stretch: condensed;
+		unicode-range: U+0020-02DC;
+	}
+
+	@font-face {
+		font-family: 'Open Sans Condensed';
+		src: url('/public/fonts/Open Sans Condensed Regular.woff2') format('woff2'),
+			url('/public/fonts/Open Sans Condensed Regular.woff') format('woff');
+		font-weight: 400;
+		font-style: normal;
+		font-stretch: condensed;
+		unicode-range: U+0020-02DC;
+	}
+
+	@font-face {
+		font-family: 'Open Sans Condensed';
+		src: url('/public/fonts/Open Sans Condensed Medium.woff2') format('woff2'),
+			url('/public/fonts/Open Sans Condensed Medium.woff') format('woff');
+		font-weight: 500;
+		font-style: normal;
+		font-stretch: condensed;
+		unicode-range: U+0020-02DC;
+	}
+
+	@font-face {
+		font-family: 'Open Sans Condensed';
+		src: url('/public/fonts/Open Sans Condensed SemiBold.woff2') format('woff2'),
+			url('/public/fonts/Open Sans Condensed SemiBold.woff') format('woff');
+		font-weight: 600;
+		font-style: normal;
+		font-stretch: condensed;
+		unicode-range: U+0020-02DC;
+	}
+
+	@font-face {
+		font-family: 'Open Sans Condensed';
+		src: url('/public/fonts/Open Sans Condensed Bold.woff2') format('woff2'),
+			url('/public/fonts/Open Sans Condensed Bold.woff') format('woff');
+		font-weight: 700;
+		font-style: normal;
+		font-stretch: condensed;
+		unicode-range: U+0020-02DC;
+	}
+
+	@font-face {
+		font-family: 'Open Sans Condensed';
+		src: url('/public/fonts/Open Sans Condensed ExtraBold.woff2') format('woff2'),
+			url('/public/fonts/Open Sans Condensed ExtraBold.woff') format('woff');
+		font-weight: 800;
+		font-style: normal;
+		font-stretch: condensed;
+		unicode-range: U+0020-02DC;
+	}
+
+
+	/* 
+		—— MANUKA | MANUKA CONDENSED | MANUKA SLAB ——
+		100 for Thin,
+		300 for Light,
+		400 for Regular,
+		500 for Medium,
+		700 for Bold,
+		800 for Ultra,
+		900 for Black.
+	*/
+
+	@font-face {
+		font-family: 'Manuka';
+		src: url('/public/fonts/Manuka Black.woff2') format('woff2'),
+			url('/public/fonts/Manuka Black.woff') format('woff');
+		font-weight: 900;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka';
+		src: url('/public/fonts/Manuka Bold.woff2') format('woff2'),
+			url('/public/fonts/Manuka Bold.woff') format('woff');
+		font-weight: 700;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka Condensed';
+		src: url('/public/fonts/Manuka Condensed Black.woff2') format('woff2'),
+			url('/public/fonts/Manuka Condensed Black.woff') format('woff');
+		font-weight: 900;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka Condensed';
+		src: url('/public/fonts/Manuka Condensed Bold.woff2') format('woff2'),
+			url('/public/fonts/Manuka Condensed Bold.woff') format('woff');
+		font-weight: 700;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka Condensed';
+		src: url('/public/fonts/Manuka Condensed Light.woff2') format('woff2'),
+			url('/public/fonts/Manuka Condensed Light.woff') format('woff');
+		font-weight: 300;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka Condensed';
+		src: url('/public/fonts/Manuka Condensed Medium.woff2') format('woff2'),
+			url('/public/fonts/Manuka Condensed Medium.woff') format('woff');
+		font-weight: 500;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka Condensed';
+		src: url('/public/fonts/Manuka Condensed Regular.woff2') format('woff2'),
+			url('/public/fonts/Manuka Condensed Regular.woff') format('woff');
+		font-weight: 400;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka Condensed';
+		src: url('/public/fonts/Manuka Condensed Thin.woff2') format('woff2'),
+			url('/public/fonts/Manuka Condensed Thin.woff') format('woff');
+		font-weight: 100;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka Condensed';
+		src: url('/public/fonts/Manuka Condensed Ultra.woff2') format('woff2'),
+			url('/public/fonts/Manuka Condensed Ultra.woff') format('woff');
+		font-weight: 800;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka';
+		src: url('/public/fonts/Manuka Light.woff2') format('woff2'),
+			url('/public/fonts/Manuka Light.woff') format('woff');
+		font-weight: 300;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka';
+		src: url('/public/fonts/Manuka Medium.woff2') format('woff2'),
+			url('/public/fonts/Manuka Medium.woff') format('woff');
+		font-weight: 500;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka';
+		src: url('/public/fonts/Manuka Regular.woff2') format('woff2'),
+			url('/public/fonts/Manuka Regular.woff') format('woff');
+		font-weight: 400;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka Slab';
+		src: url('/public/fonts/Manuka Slab Black.woff2') format('woff2'),
+			url('/public/fonts/Manuka Slab Black.woff') format('woff');
+		font-weight: 900;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka Slab';
+		src: url('/public/fonts/Manuka Slab Bold.woff2') format('woff2'),
+			url('/public/fonts/Manuka Slab Bold.woff') format('woff');
+		font-weight: 700;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka Slab';
+		src: url('/public/fonts/Manuka Slab Light.woff2') format('woff2'),
+			url('/public/fonts/Manuka Slab Light.woff') format('woff');
+		font-weight: 300;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka Slab';
+		src: url('/public/fonts/Manuka Slab Medium.woff2') format('woff2'),
+			url('/public/fonts/Manuka Slab Medium.woff') format('woff');
+		font-weight: 500;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka Slab';
+		src: url('/public/fonts/Manuka Slab Regular.woff2') format('woff2'),
+			url('/public/fonts/Manuka Slab Regular.woff') format('woff');
+		font-weight: 400;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka Slab';
+		src: url('/public/fonts/Manuka Slab Thin.woff2') format('woff2'),
+			url('/public/fonts/Manuka Slab Thin.woff') format('woff');
+		font-weight: 100;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka Slab';
+		src: url('/public/fonts/Manuka Slab Ultra.woff2') format('woff2'),
+			url('/public/fonts/Manuka Slab Ultra.woff') format('woff');
+		font-weight: 800;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka';
+		src: url('/public/fonts/Manuka Thin.woff2') format('woff2'),
+			url('/public/fonts/Manuka Thin.woff') format('woff');
+		font-weight: 100;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
+
+	@font-face {
+		font-family: 'Manuka';
+		src: url('/public/fonts/Manuka Ultra.woff2') format('woff2'),
+			url('/public/fonts/Manuka Ultra.woff') format('woff');
+		font-weight: 800;
+		font-style: normal;
+		font-stretch: normal;
+		unicode-range: U+0020-007A;
+	}
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+.mw {
+	max-width: 80rem;
+	margin-left: auto;
+	margin-right: auto;
 }
 
-body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+.card-after {
+	position: relative;
+
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		border-radius: 15px;
+		background-color: rgb(var(--color-red));
+		transform: translate(0.5rem, 0.5rem);
+		z-index: -1;
+	}
 }
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
+.title::after {
+    content: attr(data-title);
+    position: absolute;
+    top: 3.5px; /* Adjust based on your design */
+    left: 3.5px; /* Adjust based on your design */
+    color: rgb(var(--color-red)); /* Use your defined color */
+    z-index: 0;
 }
