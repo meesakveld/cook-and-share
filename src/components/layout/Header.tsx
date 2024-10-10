@@ -20,7 +20,7 @@ export default async function Header() {
             <Card className='flex max-[400px]:flex-col max-[400px]:gap-2 items-center justify-between px-6'>
                 <Link href='/' className='max-[400px]:scale-150 max-[400px]:py-2'><Title>Cook and Share</Title></Link>
 
-                <div className='flex gap-12 min-[400px]:gap-6 items-center max-[400px]:mb-2'>
+                <nav className='flex gap-12 min-[400px]:gap-6 items-center max-[400px]:mb-2'>
                     <Link href='/recipes' className='font-manukaCondensed uppercase text-red text-3vw hover:opacity-70 transition-opacity duration-200'>Recipes</Link>
                     <Link href='/dashboard/favourites' className='font-manukaCondensed uppercase text-red text-3vw hover:opacity-70 transition-opacity duration-200'>Favourites</Link>
 
@@ -31,7 +31,7 @@ export default async function Header() {
                             className='w-3vw h-3vw'
                         />
                     </Link>
-                </div>
+                </nav>
             </Card>
         </header>
     )
