@@ -49,7 +49,7 @@ export default function RecipeCard({ recipe, toggleFavoriteStatus, className }: 
                 <img
                     src={firstImage}
                     alt={recipe.title}
-                    className='w-full h-full object-cover aspect-video rounded-[15px]'
+                    className='w-full h-full object-cover aspect-video rounded-[15px] pointer-events-none'
                 />
 
                 { userIsLoggedIn && (

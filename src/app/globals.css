@@ -18,9 +18,9 @@
 	}
 
 	::selection {
-        background-color: rgb(var(--color-red));
-        color: rgb(var(--color-beige));
-    }
+		background-color: rgb(var(--color-red));
+		color: rgb(var(--color-beige));
+	}
 
 	html {
 		background-color: rgb(var(--color-beige));
@@ -339,15 +339,22 @@
 		width: 100%;
 		height: 100%;
 		border-radius: 15px;
-		background-color: rgb(var(--color-red));
 		transform: translate(0.5rem, 0.5rem);
 		z-index: -1;
+	}
+
+	&.bg-red::after {
+		background-color: rgb(var(--color-beige));
+	}
+
+	&.bg-beige::after {
+		background-color: rgb(var(--color-red));
 	}
 }
 
 .card-after-hover {
 	position: relative;
-	
+
 	&::after {
 		content: '';
 		position: absolute;
@@ -366,12 +373,23 @@
 	}
 }
 
-.title::after {
-    content: attr(data-title);
-    position: absolute;
-    top: 3.5px; 
-    left: 3.5px;
-    color: rgb(var(--color-red)); 
-    z-index: 0;
-	width: 100%;
+.title {
+
+	&::after {
+		content: attr(data-title);
+		position: absolute;
+		top: 3.5px;
+		left: 3.5px;
+		z-index: 0;
+		width: 100%;
+
+	}
+
+	&.red::after {
+		color: rgb(var(--color-red));
+	}
+
+	&.beige::after {
+		color: rgb(var(--color-beige));
+	}
 }
