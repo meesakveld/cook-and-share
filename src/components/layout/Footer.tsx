@@ -36,12 +36,12 @@ export default function Footer() {
 
     return (
         <div>
-            <Image src={footerImage} alt="Footer image" className="pointer-events-none mw" />
+            <Image src={footerImage} alt="Footer image" className="pointer-events-none mw w-full" />
 
             <footer className="bg-red py-4">
                 <div className="mw px-4">
                     <Card color="red">
-                        <nav className="flex justify-between p-5">
+                        <nav className="flex flex-col md:flex-row md:flex-wrap max-md:gap-4 justify-between p-5">
                             {urls.map((url, i) => (
                                 <ul key={i} className="flex flex-col gap-1">
                                     <h3 className="uppercase text-beige opacity-50">{url.title}</h3>
@@ -52,7 +52,7 @@ export default function Footer() {
                                     ))}
                                 </ul>
                             ))}
-                            <Link href='/' className='max-[400px]:scale-150 max-[400px]:py-2'><Title color="red">Cook and Share</Title></Link>
+                            <Link href='/' className='max-[400px]:py-2'><Title color="red">Cook and Share</Title></Link>
                         </nav>
                     </Card>
                 </div>
