@@ -2,8 +2,9 @@ type InputTextProps = {
     id: string,
     label: string,
     color: 'beige' | 'red',
-
+    
     // —— Optional props ——
+    type?: 'text' | 'email' | 'password',
     placeholder?: string,
     value?: string,
     setValue?: (value: string) => void,
@@ -17,7 +18,7 @@ type InputTextProps = {
     errorMessage?: string,
 }
 
-export default function InputText({ id, label, color, placeholder, value, setValue, onChange, required, disabled, readOnly, maxLength, minLength, pattern, errorMessage }: InputTextProps) {
+export default function InputText({ id, label, color, type = "text", placeholder, value, setValue, onChange, required, disabled, readOnly, maxLength, minLength, pattern, errorMessage }: InputTextProps) {
     const invertedColor = color === 'beige' ? 'red' : 'beige';
     const count = value?.length;
 
@@ -50,7 +51,7 @@ export default function InputText({ id, label, color, placeholder, value, setVal
 
             <input
                 id={id}
-                type="text"
+                type={type}
                 placeholder={placeholder}
                 value={value}
                 onChange={(ev) => {
