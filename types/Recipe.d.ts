@@ -1,8 +1,10 @@
+import Category from "./Category"
+
 type RecipeType = {
     id: number,
     title: string,
     description: string,
-    category: string[],
+    category: Category[],
     difficulty: int,
     totalTime: number,
     images: string[],

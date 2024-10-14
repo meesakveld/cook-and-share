@@ -393,3 +393,15 @@
 		color: rgb(var(--color-beige));
 	}
 }
+
+.placeholder-opacity-50::placeholder {
+	opacity: 0.5;
+}
+
+.placeholder-text-red::placeholder {
+	color: rgb(var(--color-red));
+}
+
+.placeholder-text-beige::placeholder {
+	color: rgb(var(--color-beige));
+}

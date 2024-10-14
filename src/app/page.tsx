@@ -1,16 +1,38 @@
 'use client'
+import { useEffect, useState } from "react";
+
 import Button from "@/components/common/Button";
+import InputText from "@/components/forms/input-components/InputText";
 import RecipeCard from "@/components/ui/RecipeCard";
 
 import RecipeType from "@/types/Recipe";
+import Category from "@/types/Category";
+import InputTextArea from "@/components/forms/input-components/InputTextArea";
+import InputSelectMultiple from "@/components/forms/input-components/InputSelectMultiple";
 
 export default function Home() {
+	const [inputText, setInputText] = useState<string>('');
+	const [inputSelect, setInputSelect] = useState<Category[]>([
+		{ id: 1, value: 'pasta', name: 'Pasta' },
+		{ id: 2, value: 'italian', name: 'Italian' },
+		{ id: 3, value: 'vegetarian', name: 'Vegetarian' },
+	]);
+	const allCategories: Category[] = [
+		{ id: 1, value: 'pasta', name: 'Pasta' },
+		{ id: 2, value: 'italian', name: 'Italian' },
+		{ id: 3, value: 'vegetarian', name: 'Vegetarian' },
+		{ id: 4, value: 'meat', name: 'Meat' },
+		{ id: 5, value: 'fish', name: 'Fish' },
+		{ id: 6, value: 'vegan', name: 'Vegan' },
+		{ id: 7, value: 'gluten-free', name: 'Gluten-free' },
+		{ id: 8, value: 'dairy-free', name: 'Dairy-free' },
+	]
 
 	const recipe: RecipeType = {
 		id: 1,
 		title: 'Baked salmon With Cranberry Tapenade',
 		description: 'A delicious pasta dish',
-		category: ['pasta', 'italian'],
+		category: [{ id: 1, value: 'pasta', name: 'Pasta' }, { id: 2, value: 'italian', name: 'Italian' }],
 		difficulty: 2,
 		totalTime: 130,
 		images: [
@@ -47,6 +69,45 @@ export default function Home() {
 				<RecipeCard recipe={recipe} toggleFavoriteStatus={toggleFavoriteStatus} />
 				<RecipeCard recipe={recipe} toggleFavoriteStatus={toggleFavoriteStatus} />
 			</div>
+
+			<form className="flex flex-col gap-4">
+				<InputText 
+					id="input-text" 
+					label="Recipe title" 
+					color="red" 
+					maxLength={50}
+					value={inputText} 
+					setValue={setInputText} 
+					placeholder="Recipe title" 
+					required={true} 
+					errorMessage="This field is required"
+				/>
+				
+				<InputTextArea
+					id="input-text" 
+					label="Description" 
+					color="red" 
+					maxLength={50}
+					value={inputText} 
+					setValue={setInputText} 
+					placeholder="Description" 
+					required={true} 
+					rows={3}
+					errorMessage="This field is required"
+				/>
+
+				<InputSelectMultiple
+					id="input-text" 
+					label="Categories" 
+					options={allCategories}
+					color="red" 
+					value={inputSelect} 
+					setValue={setInputSelect} 
+					placeholder="Categories" 
+					required={true} 
+					errorMessage="This field is required"
+				/>
+			</form>
 
 		</div>
 	);
