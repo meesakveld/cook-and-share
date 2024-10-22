@@ -1,4 +1,5 @@
 import Category from "./Category"
+import User from "./User"
 
 type RecipeType = {
     id: number,
@@ -10,6 +11,7 @@ type RecipeType = {
     images: string[],
     ingredients: IngredientType[],
     directions: string[],
+    user: User,
 }
 
 export type IngredientType = {

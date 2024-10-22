@@ -13,26 +13,26 @@ import InputSelectMultiple from "@/components/forms/input-components/InputSelect
 export default function Home() {
 	const [inputText, setInputText] = useState<string>('');
 	const [inputSelect, setInputSelect] = useState<Category[]>([
-		{ id: 1, value: 'pasta', name: 'Pasta' },
-		{ id: 2, value: 'italian', name: 'Italian' },
-		{ id: 3, value: 'vegetarian', name: 'Vegetarian' },
+		{ id: 1, name: 'Pasta' },
+		{ id: 2, name: 'Italian' },
+		{ id: 3, name: 'Vegetarian' },
 	]);
 	const allCategories: Category[] = [
-		{ id: 1, value: 'pasta', name: 'Pasta' },
-		{ id: 2, value: 'italian', name: 'Italian' },
-		{ id: 3, value: 'vegetarian', name: 'Vegetarian' },
-		{ id: 4, value: 'meat', name: 'Meat' },
-		{ id: 5, value: 'fish', name: 'Fish' },
-		{ id: 6, value: 'vegan', name: 'Vegan' },
-		{ id: 7, value: 'gluten-free', name: 'Gluten-free' },
-		{ id: 8, value: 'dairy-free', name: 'Dairy-free' },
+		{ id: 1, name: 'Pasta' },
+		{ id: 2, name: 'Italian' },
+		{ id: 3, name: 'Vegetarian' },
+		{ id: 4, name: 'Meat' },
+		{ id: 5, name: 'Fish' },
+		{ id: 6, name: 'Vegan' },
+		{ id: 7, name: 'Gluten-free' },
+		{ id: 8, name: 'Dairy-free' },
 	]
 
 	const recipe: RecipeType = {
 		id: 1,
 		title: 'Baked salmon With Cranberry Tapenade',
 		description: 'A delicious pasta dish',
-		category: [{ id: 1, value: 'pasta', name: 'Pasta' }, { id: 2, value: 'italian', name: 'Italian' }],
+		category: [{ id: 1, name: 'Pasta' }, { id: 2, name: 'Italian' }],
 		difficulty: 2,
 		totalTime: 130,
 		images: [
@@ -99,9 +99,9 @@ export default function Home() {
 				<InputSelectMultiple
 					id="input-text" 
 					label="Categories" 
-					options={allCategories}
+					options={allCategories.map(category => ({ name: category.name, value: category.name }))}
 					color="red" 
-					value={inputSelect} 
+					value={inputSelect.map(category => ({ name: category.name, value: category.name }))}
 					setValue={setInputSelect} 
 					placeholder="Categories" 
 					required={true} 
