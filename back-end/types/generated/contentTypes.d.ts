@@ -624,7 +624,7 @@ export interface ApiRecipeRecipe extends Struct.CollectionTypeSchema {
   info: {
     singularName: 'recipe';
     pluralName: 'recipes';
-    displayName: 'recipe';
+    displayName: 'Recipe';
     description: '';
   };
   options: {
