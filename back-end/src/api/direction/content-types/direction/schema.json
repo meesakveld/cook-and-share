@@ -15,7 +15,7 @@
     "description": {
       "type": "text"
     },
-    "stepNumber": {
+    "step": {
       "type": "integer",
       "required": true
     }

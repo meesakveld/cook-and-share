@@ -4,7 +4,8 @@
   "info": {
     "singularName": "comment",
     "pluralName": "comments",
-    "displayName": "Comment"
+    "displayName": "Comment",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -13,7 +14,7 @@
   "attributes": {
     "comment": {
       "type": "text",
-      "maxLength": 3
+      "minLength": 3
     },
     "user": {
       "type": "relation",
@@ -23,11 +24,6 @@
     "datePosted": {
       "type": "datetime",
       "required": true
-    },
-    "recipe": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::recipe.recipe"
     }
   }
 }

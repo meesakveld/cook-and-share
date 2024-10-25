@@ -450,7 +450,6 @@ export interface PluginUsersPermissionsUser
     displayName: 'User';
   };
   options: {
-    timestamps: true;
     draftAndPublish: false;
   };
   attributes: {
@@ -479,6 +478,8 @@ export interface PluginUsersPermissionsUser
       'manyToOne',
       'plugin::users-permissions.role'
     >;
+    firstname: Schema.Attribute.String & Schema.Attribute.Required;
+    lastname: Schema.Attribute.String & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -529,6 +530,7 @@ export interface ApiCommentComment extends Struct.CollectionTypeSchema {
     singularName: 'comment';
     pluralName: 'comments';
     displayName: 'Comment';
+    description: '';
   };
   options: {
     draftAndPublish: true;
@@ -536,14 +538,13 @@ export interface ApiCommentComment extends Struct.CollectionTypeSchema {
   attributes: {
     comment: Schema.Attribute.Text &
       Schema.Attribute.SetMinMaxLength<{
-        maxLength: 3;
+        minLength: 3;
       }>;
     user: Schema.Attribute.Relation<
       'oneToOne',
       'plugin::users-permissions.user'
     >;
     datePosted: Schema.Attribute.DateTime & Schema.Attribute.Required;
-    recipe: Schema.Attribute.Relation<'oneToOne', 'api::recipe.recipe'>;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -573,7 +574,7 @@ export interface ApiDirectionDirection extends Struct.CollectionTypeSchema {
   };
   attributes: {
     description: Schema.Attribute.Text;
-    stepNumber: Schema.Attribute.Integer & Schema.Attribute.Required;
+    step: Schema.Attribute.Integer & Schema.Attribute.Required;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;
@@ -657,6 +658,11 @@ export interface ApiRecipeRecipe extends Struct.CollectionTypeSchema {
       'plugin::users-permissions.user'
     >;
     comments: Schema.Attribute.Relation<'oneToMany', 'api::comment.comment'>;
+    datePosted: Schema.Attribute.DateTime;
+    directions: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::direction.direction'
+    >;
     createdAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     publishedAt: Schema.Attribute.DateTime;

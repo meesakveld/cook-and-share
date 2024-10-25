@@ -57,6 +57,14 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::comment.comment"
+    },
+    "datePosted": {
+      "type": "datetime"
+    },
+    "directions": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::direction.direction"
     }
   }
 }
