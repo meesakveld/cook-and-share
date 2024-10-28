@@ -15,6 +15,7 @@ export default {
         difficulty: Int
         totalTime: String
         categories: [ID!]!
+        images: [String!]
         user: ID!
         datePosted: String
       }

@@ -1,7 +1,7 @@
 export default {
   // This is your custom upsert mutation
   async upsertRecipe(parent, args, context) {
-    const { title, description, ingredients, directions, difficulty, totalTime, categories, user, datePosted } = args.data;
+    const { title, description, ingredients, directions, images, difficulty, totalTime, categories, user, datePosted } = args.data;
     const id = args.data?.id;
 
     // Check if the recipe exists
@@ -11,6 +11,36 @@ export default {
         populate: ['ingredients'], // Populate the ingredients to get current IDs
       });
     }
+
+    // ——————— Process images ———————
+    const imageIds = [];
+    if (images && images.length > 0) {
+      for (const image of images) {
+        // Ensure image is in Blob format
+        const response = await fetch(image);
+        const blob = await response.blob();
+        
+        const formData = new FormData();
+        formData.append('files', blob, `image-${Date.now()}.png`); // You may want to customize the file name
+        
+        const uploadedImage = await fetch(`${process.env.STRAPI_API_URL}/upload`, {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${process.env.STRAPI_API_TOKEN}`,
+          },
+          body: formData,
+        });
+
+        const data = await uploadedImage.json(); // Wait for the response to be parsed as JSON
+
+        if (data && data[0]) {
+          imageIds.push(data[0].id); // Use 'id' or appropriate property based on your Strapi response
+        } else {
+          console.error('No image ID returned:', data);
+        }
+      }
+    }
+    console.log('imageIds:', imageIds);
 
     // ——————— Process ingredients ———————
     // Process ingredients
@@ -60,32 +90,33 @@ export default {
 
     // ——————— Process recipe ———————
     const recipeData = {
-      title, 
-      description, 
-      difficulty, 
-      totalTime, 
-      categories, 
-      user, 
+      title,
+      description,
+      difficulty,
+      totalTime,
+      categories,
+      user,
       datePosted,
-      images: [] // If you want to include images
     };
 
     if (existingRecipe) {
       // Update existing recipe with the new array of ingredient IDs
       return await strapi.entityService.update('api::recipe.recipe', id, {
-        data: { 
+        data: {
           ...recipeData,
           ingredients: ingredientIds, // Use the correctly formatted input here
           directions: directionIds, // Use the correctly formatted input here
+          images: imageIds,
         },
       });
     } else {
       // Create new recipe with the new array of ingredient IDs
       return await strapi.entityService.create('api::recipe.recipe', {
-        data: { 
+        data: {
           ...recipeData,
           ingredients: ingredientIds, // Use the correctly formatted input here
-          directions: directionIds // Use the correctly formatted input here
+          directions: directionIds, // Use the correctly formatted input here
+          images: imageIds,
         },
       });
     }

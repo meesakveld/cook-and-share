@@ -13,6 +13,13 @@ const mutation = `
                 name,
                 amount
             },
+            directions {
+                step,
+                description
+            },
+            images {
+                documentId
+            },
             categories {
                 documentId
             },
