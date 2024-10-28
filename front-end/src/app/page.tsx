@@ -1,22 +1,23 @@
-'use client'
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import Button from "@/components/common/Button";
 import InputText from "@/components/forms/input-components/InputText";
 import RecipeCard from "@/components/ui/RecipeCard";
+import Hero from "@/components/layout/Hero";
 
 import RecipeType from "@/types/Recipe";
 import Category from "@/types/Category";
 import InputTextArea from "@/components/forms/input-components/InputTextArea";
 import InputSelectMultiple from "@/components/forms/input-components/InputSelectMultiple";
+import Title from "@/components/common/Title";
 
 export default function Home() {
-	const [inputText, setInputText] = useState<string>('');
-	const [inputSelect, setInputSelect] = useState<Category[]>([
-		{ documentId: 1, name: 'Pasta' },
-		{ documentId: 2, name: 'Italian' },
-		{ documentId: 3, name: 'Vegetarian' },
-	]);
+	// const [inputText, setInputText] = useState<string>('');
+	// const [inputSelect, setInputSelect] = useState<Category[]>([
+	// 	{ documentId: 1, name: 'Pasta' },
+	// 	{ documentId: 2, name: 'Italian' },
+	// 	{ documentId: 3, name: 'Vegetarian' },
+	// ]);
 	const allCategories: Category[] = [
 		{ documentId: 1, name: 'Pasta' },
 		{ documentId: 2, name: 'Italian' },
@@ -59,19 +60,25 @@ export default function Home() {
 	};
 
 	return (
-		<div className="mw p-4">
-			<h1>Homepage</h1>
+		<div>
+			<Hero title="Share recipes, And Inspire Others" />
 
-			<Button color='red' function='button'>View all recipes</Button>
+			<Button color='beige' function='link' style={{ display: 'block', width: 'fit-content', margin: 'auto' }} href='#share-recipes'>
+				Start to share
+			</Button>
 
-			<div className="flex gap-4 justify-between">
-				<RecipeCard recipe={recipe} />
-				<RecipeCard recipe={recipe} />
-				<RecipeCard recipe={recipe} />
-				<RecipeCard recipe={recipe} />
-			</div>
+			<div className="mw p-4">
 
-			<form className="flex flex-col gap-4">
+				<Title id="share-recipes">Share recipes</Title>
+
+				<div className="flex gap-4 justify-between">
+					<RecipeCard recipe={recipe} />
+					<RecipeCard recipe={recipe} />
+					<RecipeCard recipe={recipe} />
+					<RecipeCard recipe={recipe} />
+				</div>
+
+				{/* <form className="flex flex-col gap-4">
 				<InputText 
 					id="input-text" 
 					label="Recipe title" 
@@ -108,7 +115,9 @@ export default function Home() {
 					required={true} 
 					errorMessage="This field is required"
 				/>
-			</form>
+			</form> */}
+
+			</div>
 
 		</div>
 	);

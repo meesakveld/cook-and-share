@@ -5,6 +5,7 @@ type ButtonProps = {
     function: 'link' | 'button',
     color: 'beige' | 'red',
     className?: string,
+    style?: React.CSSProperties,
 
     // —— Optional props ——
     // If the button is a link
@@ -15,14 +16,14 @@ type ButtonProps = {
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export default function Button({ children, function: buttonFunction, color, className, href, target, onClick }: ButtonProps) {
+export default function Button({ children, function: buttonFunction, color, className, style, href, target, onClick }: ButtonProps) {
     const background = color === 'beige' ? 'bg-beige' : 'bg-red';
     const text = color === 'beige' ? 'text-red' : 'text-beige';
     const border = color === 'beige' ? 'border-red' : 'border-beige';
 
     const hover = color === 'beige' ? 'hover:bg-red hover:text-beige' : 'hover:bg-beige hover:text-red hover:border-red';
 
-    const style = `
+    const styleButton = `
         font-manukaCondensed
         uppercase 
         ${text} 
@@ -49,7 +50,8 @@ export default function Button({ children, function: buttonFunction, color, clas
                 <a
                     href={href}
                     target={target ?? '_self'}
-                    className={style}
+                    className={styleButton}
+                    style={style}
                 >
                     {children}
                 </a>
@@ -59,7 +61,8 @@ export default function Button({ children, function: buttonFunction, color, clas
             return (
                 <button
                     onClick={onClick}
-                    className={style}
+                    className={styleButton}
+                    style={style}
                 >
                     {children}
                 </button>
