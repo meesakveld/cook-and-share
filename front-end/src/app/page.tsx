@@ -13,49 +13,50 @@ import InputSelectMultiple from "@/components/forms/input-components/InputSelect
 export default function Home() {
 	const [inputText, setInputText] = useState<string>('');
 	const [inputSelect, setInputSelect] = useState<Category[]>([
-		{ id: 1, name: 'Pasta' },
-		{ id: 2, name: 'Italian' },
-		{ id: 3, name: 'Vegetarian' },
+		{ documentId: 1, name: 'Pasta' },
+		{ documentId: 2, name: 'Italian' },
+		{ documentId: 3, name: 'Vegetarian' },
 	]);
 	const allCategories: Category[] = [
-		{ id: 1, name: 'Pasta' },
-		{ id: 2, name: 'Italian' },
-		{ id: 3, name: 'Vegetarian' },
-		{ id: 4, name: 'Meat' },
-		{ id: 5, name: 'Fish' },
-		{ id: 6, name: 'Vegan' },
-		{ id: 7, name: 'Gluten-free' },
-		{ id: 8, name: 'Dairy-free' },
+		{ documentId: 1, name: 'Pasta' },
+		{ documentId: 2, name: 'Italian' },
+		{ documentId: 3, name: 'Vegetarian' },
+		{ documentId: 4, name: 'Meat' },
+		{ documentId: 5, name: 'Fish' },
+		{ documentId: 6, name: 'Vegan' },
+		{ documentId: 7, name: 'Gluten-free' },
+		{ documentId: 8, name: 'Dairy-free' },
 	]
 
 	const recipe: RecipeType = {
-		id: 1,
+		documentId: '1',
 		title: 'Baked salmon With Cranberry Tapenade',
 		description: 'A delicious pasta dish',
-		category: [{ id: 1, name: 'Pasta' }, { id: 2, name: 'Italian' }],
+		category: [{ documentId: 1, name: 'Pasta' }, { documentId: 2, name: 'Italian' }],
 		difficulty: 2,
-		totalTime: 130,
+		totalTime: "30",
 		images: [
 			'https://plus.unsplash.com/premium_photo-1675252369719-dd52bc69c3df?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
 			'https://plus.unsplash.com/premium_photo-1661601722152-87143d4be5b9?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
 		],
 		ingredients: [
-			{ ingredient: 'Pasta', amount: '200g' },
-			{ ingredient: 'Egg', amount: '2' },
-			{ ingredient: 'Bacon', amount: '100g' },
-			{ ingredient: 'Parmesan', amount: '50g' },
+			{ name: 'Pasta', amount: '200g' },
+			{ name: 'Egg', amount: '2' },
+			{ name: 'Bacon', amount: '100g' },
+			{ name: 'Parmesan', amount: '50g' },
 		],
 		directions: [
-			'Cook the pasta',
-			'Fry the bacon',
-			'Mix the egg with the parmesan',
-			'Mix everything together',
+			{ step: 1, description: 'Cook the pasta' },
+			{ step: 2, description: 'Fry the bacon' },
+			{ step: 3, description: 'Mix the egg with the parmesan' },
+			{ step: 4, description: 'Mix everything together' },
 		],
+		user: {
+			documentId: '1',
+			firstname: 'John',
+			lastname: 'Doe',
+		},
 	};
-
-	const toggleFavoriteStatus = () => {
-        console.log('toggleFavoriteStatus');
-    }
 
 	return (
 		<div className="mw p-4">
@@ -64,10 +65,10 @@ export default function Home() {
 			<Button color='red' function='button'>View all recipes</Button>
 
 			<div className="flex gap-4 justify-between">
-				<RecipeCard recipe={recipe} toggleFavoriteStatus={toggleFavoriteStatus} />
-				<RecipeCard recipe={recipe} toggleFavoriteStatus={toggleFavoriteStatus} />
-				<RecipeCard recipe={recipe} toggleFavoriteStatus={toggleFavoriteStatus} />
-				<RecipeCard recipe={recipe} toggleFavoriteStatus={toggleFavoriteStatus} />
+				<RecipeCard recipe={recipe} />
+				<RecipeCard recipe={recipe} />
+				<RecipeCard recipe={recipe} />
+				<RecipeCard recipe={recipe} />
 			</div>
 
 			<form className="flex flex-col gap-4">

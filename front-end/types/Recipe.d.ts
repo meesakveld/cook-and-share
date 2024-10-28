@@ -1,22 +1,32 @@
 import Category from "./Category"
-import User from "./User"
 
 type RecipeType = {
-    id: number,
+    documentId: string,
     title: string,
     description: string,
     category: Category[],
     difficulty: int,
-    totalTime: number,
+    totalTime: '5' | '15' | '30' | '45' | '60' | '60+',
     images: string[],
     ingredients: IngredientType[],
-    directions: string[],
+    directions: DifficultyType[],
     user: User,
 }
 
+export default RecipeType
+
 export type IngredientType = {
-    ingredient: string,
+    name: string,
     amount: string,
 }
 
-export default RecipeType
+export type DifficultyType = {
+    description: string,
+    step: number,
+}
+
+type User = {
+    firstname: string,
+    lastname: string,
+    documentId: string,
+}

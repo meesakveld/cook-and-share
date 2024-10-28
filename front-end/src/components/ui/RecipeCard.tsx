@@ -1,62 +1,40 @@
-'use client';
-// ——— NPM Imports ———
-import Image from 'next/image';
-
 // ——— Types ———
 import RecipeType from "@/types/Recipe"
 
-// ——— Assets ———
-import star from '@/assets/icons/star.svg';
-import starFilled from '@/assets/icons/star.fill.svg';
-
 type RecipeCardProps = {
     recipe: RecipeType,
-    toggleFavoriteStatus: () => void,
     className?: string
 }
 
-export default function RecipeCard({ recipe, toggleFavoriteStatus, className }: RecipeCardProps) {
+export default async function RecipeCard({ recipe, className }: RecipeCardProps) {
     const firstImage = recipe.images[0];
 
     const totalTimeInMinutes = recipe.totalTime;
-    const makeTimePretty = (totalTimeInMinutes: number) => {
-        const hours = Math.floor(totalTimeInMinutes / 60);
-        const minutes = totalTimeInMinutes % 60;
-
-        if (hours === 0) return `${minutes}min`;
-        if (hours >= 1) return `${hours}h ${minutes}min`;
-    }
-
-    const likes = 12451;
-    const makeLikesPretty = (likes: number) => {
-        if (likes < 1000) return likes;
-        if (likes >= 1000) {
-            const kLikes = likes / 1000;
-            return `${kLikes.toFixed(1)}k`;
+    const makeTimePretty = (totalTimeInMinutes: string) => {
+        switch (totalTimeInMinutes) {
+            case "5":
+                return "5min";
+            case "15":
+                return "15min";
+            case "30":
+                return "30min";
+            case "45":
+                return "45min";
+            case "60":
+                return "1h";
+            case "60+":
+                return "1h+";
         }
     }
 
-    const userFirstName = "Mees Akveld";
-
-    // ——— Favorite star ———
-    const userIsLoggedIn: boolean = true
-    const userHasRecipeFavorited: boolean = false;
-    const favoriteIcon = userHasRecipeFavorited ? starFilled : star;
-
     return (
-        <article className={`bg-beige border-2 border-red rounded-[15px] p-3 flex flex-col gap-4 max-w-72 card-after-hover ${className ?? ""}`}>
+        <article className={`bg-beige border-2 border-red rounded-[15px] p-3 flex flex-col gap-4 max-w-72 card-after-hover ${className ?? ""} mb-2`}>
             <div className="relative">
                 <img
                     src={firstImage}
                     alt={recipe.title}
                     className='w-full h-full object-cover aspect-video rounded-[15px] pointer-events-none'
                 />
-
-                { userIsLoggedIn && (
-                    <button className={`absolute top-2 right-2 hover:opacity-70 transition-opacity duration-200`} onClick={toggleFavoriteStatus}>
-                        <Image src={favoriteIcon} alt="Favorite" />
-                    </button>
-                )}
             </div>
 
             <h2 className='font-manukaCondensed uppercase text-red text-3vw leading-[90%]'>
@@ -80,15 +58,11 @@ export default function RecipeCard({ recipe, toggleFavoriteStatus, className }: 
                         <p className="uppercase font-manukaCondensed text-2vw text-red">{makeTimePretty(totalTimeInMinutes)}</p>
                     </div>
 
-                    <div>
-                        <h3 className="uppercase text-red font-openSansCondensed font-normal">Likes</h3>
-                        <p className="uppercase font-manukaCondensed text-2vw text-red">{makeLikesPretty(likes)}</p>
-                    </div>
                 </div>
 
                 <div>
                     <h3 className="uppercase text-red font-openSansCondensed font-normal">By user</h3>
-                    <p className="uppercase font-manukaCondensed text-2vw text-red">{userFirstName}</p>
+                    <p className="uppercase font-manukaCondensed text-2vw text-red">{recipe.user.firstname} {recipe.user.lastname}</p>
                 </div>
 
             </div>
