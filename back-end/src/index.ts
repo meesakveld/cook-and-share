@@ -10,7 +10,9 @@ export default {
    */
   register({ strapi }: { strapi: Core.Strapi }) {
     const extension = () => ({
-      typeDefs: recipeSchema.typeDefs,
+      typeDefs: `
+        ${recipeSchema.typeDefs}
+      `,
       resolvers: {
         Mutation: {
           ...recipeSchema.resolvers.Mutation,
