@@ -1,9 +1,11 @@
 'use server';
+// ——— GraphQL ———
 import graphqlRequest, { getRecipes } from "@/graphql";
 
+// ——— Types ———
 import Recipe from "@/types/Recipe";
-import Category from "@/types/Category";
 
+// ——— Components ———
 import Button from "@/components/common/Button";
 import RecipeCard from "@/components/ui/RecipeCard";
 import Hero from "@/components/layout/Hero";

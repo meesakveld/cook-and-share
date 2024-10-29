@@ -17,7 +17,7 @@ export default async function Header() {
 
     return (
         <header className='mw px-4 pt-4'>
-            <Card className='flex max-[400px]:flex-col max-[400px]:gap-2 items-center justify-between px-6'>
+            <Card className='flex max-[400px]:flex-col max-[400px]:gap-2 items-center justify-between px-6 py-2'>
                 <Link href='/' className='max-[400px]:scale-150 max-[400px]:py-2'><Title>Cook and Share</Title></Link>
 
                 <nav className='flex gap-4 min-[400px]:gap-6 items-center max-[400px]:mb-2'>
