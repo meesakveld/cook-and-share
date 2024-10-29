@@ -7,7 +7,7 @@ type RecipeType = {
     category: Category[],
     difficulty: int,
     totalTime: '5' | '15' | '30' | '45' | '60' | '60+',
-    images: string[],
+    images: ImageType[],
     ingredients: IngredientType[],
     directions: DifficultyType[],
     user: User,
@@ -23,6 +23,10 @@ export type IngredientType = {
 export type DifficultyType = {
     description: string,
     step: number,
+}
+
+export type ImageType = {
+    url: string,
 }
 
 type User = {

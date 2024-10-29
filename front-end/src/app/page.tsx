@@ -1,17 +1,15 @@
-import { useState } from "react";
+'use server';
+import graphqlRequest, { getRecipes } from "@/graphql";
+
+import Recipe from "@/types/Recipe";
+import Category from "@/types/Category";
 
 import Button from "@/components/common/Button";
-import InputText from "@/components/forms/input-components/InputText";
 import RecipeCard from "@/components/ui/RecipeCard";
 import Hero from "@/components/layout/Hero";
-
-import RecipeType from "@/types/Recipe";
-import Category from "@/types/Category";
-import InputTextArea from "@/components/forms/input-components/InputTextArea";
-import InputSelectMultiple from "@/components/forms/input-components/InputSelectMultiple";
 import Title from "@/components/common/Title";
 
-export default function Home() {
+export default  async function Home() {
 	// const [inputText, setInputText] = useState<string>('');
 	// const [inputSelect, setInputSelect] = useState<Category[]>([
 	// 	{ documentId: 1, name: 'Pasta' },
@@ -29,35 +27,7 @@ export default function Home() {
 		{ documentId: 8, name: 'Dairy-free' },
 	]
 
-	const recipe: RecipeType = {
-		documentId: '1',
-		title: 'Baked salmon With Cranberry Tapenade',
-		description: 'A delicious pasta dish',
-		category: [{ documentId: 1, name: 'Pasta' }, { documentId: 2, name: 'Italian' }],
-		difficulty: 2,
-		totalTime: "30",
-		images: [
-			'https://plus.unsplash.com/premium_photo-1675252369719-dd52bc69c3df?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-			'https://plus.unsplash.com/premium_photo-1661601722152-87143d4be5b9?q=80&w=3387&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-		],
-		ingredients: [
-			{ name: 'Pasta', amount: '200g' },
-			{ name: 'Egg', amount: '2' },
-			{ name: 'Bacon', amount: '100g' },
-			{ name: 'Parmesan', amount: '50g' },
-		],
-		directions: [
-			{ step: 1, description: 'Cook the pasta' },
-			{ step: 2, description: 'Fry the bacon' },
-			{ step: 3, description: 'Mix the egg with the parmesan' },
-			{ step: 4, description: 'Mix everything together' },
-		],
-		user: {
-			documentId: '1',
-			firstname: 'John',
-			lastname: 'Doe',
-		},
-	};
+	const response: { recipes: Recipe[] } = await graphqlRequest(getRecipes, { sort: "createdAt", pagination: { limit: 10 } })
 
 	return (
 		<div>
@@ -71,14 +41,29 @@ export default function Home() {
 
 				<Title id="share-recipes">Share recipes</Title>
 
-				<div className="flex gap-4 justify-between">
-					<RecipeCard recipe={recipe} />
-					<RecipeCard recipe={recipe} />
-					<RecipeCard recipe={recipe} />
-					<RecipeCard recipe={recipe} />
+				<div className="flex gap-4 justify-between overflow-scroll hide-scrollbar pr-2">
+					{ response.recipes && response.recipes.map((recipe) => (
+						<RecipeCard key={recipe.documentId} recipe={recipe} />
+					))}
 				</div>
 
-				{/* <form className="flex flex-col gap-4">
+			</div>
+
+		</div>
+	);
+}
+
+
+
+
+
+
+
+
+
+
+
+{/* <form className="flex flex-col gap-4">
 				<InputText 
 					id="input-text" 
 					label="Recipe title" 
@@ -116,9 +101,3 @@ export default function Home() {
 					errorMessage="This field is required"
 				/>
 			</form> */}
-
-			</div>
-
-		</div>
-	);
-}

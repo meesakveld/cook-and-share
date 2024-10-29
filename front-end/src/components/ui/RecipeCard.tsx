@@ -1,5 +1,5 @@
 // ——— Types ———
-import RecipeType from "@/types/Recipe"
+import RecipeType, { ImageType } from "@/types/Recipe"
 
 type RecipeCardProps = {
     recipe: RecipeType,
@@ -7,7 +7,7 @@ type RecipeCardProps = {
 }
 
 export default async function RecipeCard({ recipe, className }: RecipeCardProps) {
-    const firstImage = recipe.images[0];
+    const firstImage: ImageType = recipe.images[0];
 
     const totalTimeInMinutes = recipe.totalTime;
     const makeTimePretty = (totalTimeInMinutes: string) => {
@@ -28,10 +28,10 @@ export default async function RecipeCard({ recipe, className }: RecipeCardProps)
     }
 
     return (
-        <article className={`bg-beige border-2 border-red rounded-[15px] p-3 flex flex-col gap-4 max-w-72 card-after-hover ${className ?? ""} mb-2`}>
+        <article className={`bg-beige border-2 border-red rounded-[15px] p-3 flex flex-col gap-4 max-w-72 card-after-hover ${className ?? ""} mb-2 flex-shrink-0`}>
             <div className="relative">
                 <img
-                    src={firstImage}
+                    src={process.env.API_URL + firstImage.url}
                     alt={recipe.title}
                     className='w-full h-full object-cover aspect-video rounded-[15px] pointer-events-none'
                 />
