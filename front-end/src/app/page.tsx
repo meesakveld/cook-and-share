@@ -9,44 +9,56 @@ import RecipeCard from "@/components/ui/RecipeCard";
 import Hero from "@/components/layout/Hero";
 import Title from "@/components/common/Title";
 
-export default  async function Home() {
-	// const [inputText, setInputText] = useState<string>('');
-	// const [inputSelect, setInputSelect] = useState<Category[]>([
-	// 	{ documentId: 1, name: 'Pasta' },
-	// 	{ documentId: 2, name: 'Italian' },
-	// 	{ documentId: 3, name: 'Vegetarian' },
-	// ]);
-	const allCategories: Category[] = [
-		{ documentId: 1, name: 'Pasta' },
-		{ documentId: 2, name: 'Italian' },
-		{ documentId: 3, name: 'Vegetarian' },
-		{ documentId: 4, name: 'Meat' },
-		{ documentId: 5, name: 'Fish' },
-		{ documentId: 6, name: 'Vegan' },
-		{ documentId: 7, name: 'Gluten-free' },
-		{ documentId: 8, name: 'Dairy-free' },
-	]
-
-	const response: { recipes: Recipe[] } = await graphqlRequest(getRecipes, { sort: "createdAt", pagination: { limit: 10 } })
+export default async function Home() {
+	const response: { recipes: Recipe[] } = await graphqlRequest(getRecipes, { sort: "createdAt", pagination: { limit: 8 } })
 
 	return (
-		<div>
-			<Hero title="Share recipes, And Inspire Others" />
+		<div className="flex flex-col gap-12">
+			<div>
+				<Hero title="Share recipes, And Inspire Others" />
 
-			<Button color='beige' function='link' style={{ display: 'block', width: 'fit-content', margin: 'auto' }} href='#share-recipes'>
-				Start to share
-			</Button>
+				<Button color='beige' function='link' style={{ display: 'block', width: 'fit-content', margin: 'auto' }} href='#share-recipes'>
+					Start to share
+				</Button>
+			</div>
 
-			<div className="mw p-4">
+			<div>
+				<div className="mw p-4">
+					<Title id="share-recipes">Share recipes</Title>
+				</div>
 
-				<Title id="share-recipes">Share recipes</Title>
-
-				<div className="flex gap-4 justify-between overflow-scroll hide-scrollbar pr-2">
-					{ response.recipes && response.recipes.map((recipe) => (
+				<div className="flex gap-4 justify-between overflow-scroll hide-scrollbar pr-2 pl-4 mw">
+					{response.recipes && response.recipes.map((recipe) => (
 						<RecipeCard key={recipe.documentId} recipe={recipe} />
 					))}
 				</div>
 
+				<div className="flex gap-4 justify-center my-8">
+					<Button color='beige' function='link' href='/recipes'>
+						View all recipes
+					</Button>
+
+					<Button color='red' function='link' href='/recipes' style={{ borderColor: 'rgb(var(--color-red))' }}>
+						Share a recipe
+					</Button>
+				</div>
+			</div>
+
+			<div className="mx p-4 flex flex-wrap gap-20 lg:gap-40 justify-center">
+				<div className="flex flex-col gap-0">
+					<Title fontSize="35vw" maxFontSize="150px">10.000+</Title>
+					<p className="max-md:text-center">Recipes shared accros the platform</p>
+				</div>
+
+				<div className="flex flex-col gap-0">
+					<Title fontSize="35vw" maxFontSize="150px">4.000+</Title>
+					<p className="max-md:text-center">Users every day</p>
+				</div>
+
+				<div className="flex flex-col gap-0">
+					<Title fontSize="35vw" maxFontSize="150px">100+</Title>
+					<p className="max-md:text-center">New recipes every day</p>
+				</div>
 			</div>
 
 		</div>

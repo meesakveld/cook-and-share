@@ -35,7 +35,7 @@ export default function Footer() {
     ]
 
     return (
-        <div>
+        <div className="mt-16">
             <Image src={footerImage} alt="Footer image" className="pointer-events-none mw w-full" />
 
             <footer className="bg-red py-4">
