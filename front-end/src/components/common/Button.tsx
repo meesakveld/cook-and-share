@@ -28,7 +28,7 @@ export default function Button({ children, function: buttonFunction, color, clas
         uppercase 
         ${text} 
         ${background} 
-        text-2vw
+        text-3vw
         px-4
         py-[2px]
         inline-block
