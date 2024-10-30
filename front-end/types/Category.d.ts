@@ -1,5 +1,5 @@
 type Category = {
-    documentId: number,
+    documentId: string,
     name: string,
 }
 

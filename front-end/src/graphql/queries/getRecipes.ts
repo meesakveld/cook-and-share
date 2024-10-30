@@ -7,8 +7,8 @@ import { gql } from "graphql-request";
  * @returns recipes: Recipe[]
  */
 const query = gql`
-    query Recipes($sort: [String], $pagination: PaginationArg) {
-        recipes(sort: $sort, pagination: $pagination) {
+    query Recipes($sort: [String], $pagination: PaginationArg, $filters: RecipeFiltersInput) {
+        recipes(sort: $sort, pagination: $pagination, filters: $filters) {
             documentId
             title,
             description,
