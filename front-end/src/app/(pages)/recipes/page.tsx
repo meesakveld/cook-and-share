@@ -2,6 +2,9 @@
 // ——— GraphQL ———
 import graphqlRequest, { getCategories, getRecipes } from "@/graphql";
 
+// ——— Next.js ———
+import Link from "next/link";
+
 // ——— Components ———
 import Button from "@/components/common/Button";
 import Title from "@/components/common/Title";
@@ -68,7 +71,9 @@ export default async function Recipes({ params, searchParams }: Readonly<{ param
 
             <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 p-4">
                 {recipes.map((recipe: any) => (
-                    <RecipeCard key={recipe.documentId} recipe={recipe} />
+                    <Link key={recipe.documentId + '-link'} href={`/recipes/${recipe.documentId}`}>
+                        <RecipeCard recipe={recipe} />
+                    </Link>
                 ))}
             </div>
 

@@ -2,6 +2,9 @@
 // ——— GraphQL ———
 import graphqlRequest, { getRecipes } from "@/graphql";
 
+// ——— Next.js ———
+import Link from "next/link";
+
 // ——— Types ———
 import Recipe from "@/types/Recipe";
 
@@ -31,7 +34,9 @@ export default async function Home() {
 
 				<div className="flex gap-4 justify-between overflow-scroll hide-scrollbar pr-2 pl-4 mw">
 					{response.recipes && response.recipes.map((recipe) => (
-						<RecipeCard key={recipe.documentId} recipe={recipe} />
+						<Link key={recipe.documentId + '-link'} href={`/recipes/${recipe.documentId}`}>
+                        	<RecipeCard recipe={recipe} />
+                    	</Link>
 					))}
 				</div>
 

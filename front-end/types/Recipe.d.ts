@@ -4,7 +4,7 @@ type RecipeType = {
     documentId: string,
     title: string,
     description: string,
-    category: Category[],
+    categories: Category[],
     difficulty: int,
     totalTime: '5' | '15' | '30' | '45' | '60' | '60+',
     images: ImageType[],
@@ -27,6 +27,7 @@ export type DifficultyType = {
 
 export type ImageType = {
     url: string,
+    documentId: string,
 }
 
 type User = {

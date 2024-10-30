@@ -1,14 +1,13 @@
 import { gql } from "graphql-request";
 
 /**
- * Get all recipes from the database.
- * @param limit: PaginationArg | null
- *  Add { limit: number } to get the number of recipes you want. 
- * @returns recipes: Recipe[]
+ * Get a recipe by its documentId
+ * @param documentId The documentId of the recipe
+ * @returns The recipe
  */
 const query = gql`
-    query Recipes($sort: [String], $pagination: PaginationArg, $filters: RecipeFiltersInput) {
-        recipes(sort: $sort, pagination: $pagination, filters: $filters) {
+    query Recipe($documentId: ID!) {
+        recipe(documentId: $documentId) {
             documentId
             title,
             description,
