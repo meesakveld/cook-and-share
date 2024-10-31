@@ -1,8 +1,8 @@
 export default {
   // This is your custom upsert mutation
-  async upsertRecipe(parent, args, context) {
+  async addRecipe(parent, args, context) {
     const { title, description, ingredients, directions, images, difficulty, totalTime, categories, user, datePosted } = args.data;
-    const id = args.data?.id;
+    const id = args.data?.documentId;
 
     // Check if the recipe exists
     let existingRecipe;
@@ -40,7 +40,6 @@ export default {
         }
       }
     }
-    console.log('imageIds:', imageIds);
 
     // ——————— Process ingredients ———————
     // Process ingredients
@@ -121,4 +120,43 @@ export default {
       });
     }
   },
+
+  async addCommentToRecipe(parent, args, context) {
+    const { recipeId, comment, userId } = args.data;
+
+    // Check if the recipe exists
+    const existingRecipe = await strapi.documents('api::recipe.recipe').findOne({
+      documentId: recipeId,
+      populate: ['comments'],
+    });
+
+    // Process the comment
+    const commentData = {
+      comment: comment,
+      datePosted: new Date().toISOString(),
+      user: userId,
+    };
+
+    // Create new comment
+    const newComment = await strapi.documents('api::comment.comment').create({
+      data: commentData,
+      status: 'published',
+    });
+    const commentId = newComment.documentId;
+
+    // CommentIds
+    const commentIds = existingRecipe.comments.map((c) => c.documentId);
+
+    // Add the new comment to the existing comments
+    commentIds.push(commentId);
+
+    // Update the recipe with the new comment
+    return await strapi.documents('api::recipe.recipe').update({
+      documentId: recipeId,
+      data: {
+        comments: commentIds,
+      },
+      status: 'published',
+    });
+  }
 };

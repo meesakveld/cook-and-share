@@ -3,10 +3,10 @@ import mutations from "./mutations";
 export default {
   typeDefs: `
       extend type Mutation {
-        upsertRecipe(data: UpsertRecipeInput!): Recipe
+        addRecipe(data: AddRecipeInput!): Recipe
       }
   
-      input UpsertRecipeInput {
+      input AddRecipeInput {
         id: ID
         title: String!
         description: String
@@ -29,10 +29,22 @@ export default {
         step: Int!
         description: String!
       }
+
+      extend type Mutation {
+        addCommentToRecipe(data: AddCommentToRecipeInput!): Recipe
+      }
+
+      input AddCommentToRecipeInput {
+        recipeId: ID!
+        comment: String!
+        userId: ID!
+      }
+
     `,
   resolvers: {
     Mutation: {
-      upsertRecipe: mutations.upsertRecipe,
+      addRecipe: mutations.addRecipe,
+      addCommentToRecipe: mutations.addCommentToRecipe,
     },
   },
 };
