@@ -9,7 +9,8 @@ import client from "./config/graphql_client";
  */
 const graphqlRequest: any = async (query: any, variables: any = {}) => {
     try {
-        const response = await client.request(query, variables);
+        const uniqueQuery = `${query} #${Date.now()}`; // Add a unique identifier to the query to prevent caching.
+        const response = await client.request(uniqueQuery, variables);
         return response;
     } catch (error) {
         return error;

@@ -8,7 +8,7 @@ const client = new GraphQLClient(
   {
     headers: {
       Authorization: `Bearer ${settings.API_TOKEN}`,
-      fetchCache: 'force-no-store',
+      "Cache-Control": 'no-store',
     },
   }
 );
