@@ -42,7 +42,7 @@ export default async function recipe({ params }: { params: { id: string } }) {
 
                     <ul className="flex flex-wrap gap-2 sm:w-[70%]">
                         {recipe.categories.map((category) => (
-                            <li>
+                            <li key={category.documentId + category.name}>
                                 <Link href={`/recipes?cids=${category.documentId}`} className="hover:underline text-white">
                                     <span key={category.documentId} className="bg-red text-[14px] rounded-[5px] px-2 py-1">{category.name}</span>
                                 </Link>
