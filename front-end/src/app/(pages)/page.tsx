@@ -20,11 +20,9 @@ export default async function Home() {
 	return (
 		<div className="flex flex-col gap-12">
 			<div>
-				<Hero title="Share recipes, And Inspire Others" />
+				<Hero title="Share recipes, And Inspire Others" maxFontSize="14vw" />
 
-				<Button color='beige' function='link' style={{ display: 'block', width: 'fit-content', margin: 'auto' }} href='#share-recipes'>
-					Start to share
-				</Button>
+				<Button color='beige' function='link' style={{ display: 'block', width: 'fit-content', margin: 'auto' }} href='#share-recipes'>Start to share</Button>
 			</div>
 
 			<div>
@@ -32,11 +30,9 @@ export default async function Home() {
 					<Title id="share-recipes">Share recipes</Title>
 				</div>
 
-				<div className="flex gap-4 justify-between overflow-scroll hide-scrollbar pr-2 pl-4 mw">
+				<div className="flex gap-4 justify-between overflow-x-scroll hide-scrollbar pr-2 pl-4 mw">
 					{response.recipes && response.recipes.map((recipe) => (
-						<Link key={recipe.documentId + '-link'} href={`/recipes/${recipe.documentId}`}>
-                        	<RecipeCard recipe={recipe} />
-                    	</Link>
+						<RecipeCard key={recipe.documentId + '-link'} recipe={recipe} />
 					))}
 				</div>
 

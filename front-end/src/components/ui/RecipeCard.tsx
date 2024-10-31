@@ -1,5 +1,6 @@
 // ——— Types ———
 import RecipeType, { ImageType } from "@/types/Recipe"
+import Link from "next/link";
 
 type RecipeCardProps = {
     recipe: RecipeType,
@@ -28,18 +29,20 @@ export default async function RecipeCard({ recipe, className }: RecipeCardProps)
     }
 
     return (
-        <article className={`bg-beige border-2 border-red rounded-[15px] p-3 flex flex-col gap-4 max-w-72 card-after-hover ${className ?? ""} mb-2 flex-shrink-0`}>
-            <div className="relative">
-                <img
-                    src={process.env.API_URL + firstImage.url}
-                    alt={recipe.title}
-                    className='w-full h-full object-cover aspect-video rounded-[15px] pointer-events-none'
-                />
-            </div>
+        <Link href={`/recipes/${recipe.documentId}`} className={`bg-beige border-2 border-red rounded-[15px] p-3 flex flex-col gap-4 justify-between max-w-72 ${className ?? ""} mb-2 flex-shrink-0 h-full card-after-hover`}>
+            <div className="flex flex-col gap-4">
+                <div className="relative">
+                    <img
+                        src={process.env.API_URL + firstImage.url}
+                        alt={recipe.title}
+                        className='w-full h-full object-cover aspect-video rounded-[15px] pointer-events-none'
+                    />
+                </div>
 
-            <h2 className='font-manukaCondensed uppercase text-red text-3vw leading-[90%]'>
-                {recipe.title}
-            </h2>
+                <h2 className='font-manukaCondensed uppercase text-red text-3vw leading-[90%]'>
+                    {recipe.title}
+                </h2>
+            </div>
 
             <div>
                 <div className="flex gap-6">
@@ -66,7 +69,6 @@ export default async function RecipeCard({ recipe, className }: RecipeCardProps)
                 </div>
 
             </div>
-
-        </article>
+        </Link>
     )
 }

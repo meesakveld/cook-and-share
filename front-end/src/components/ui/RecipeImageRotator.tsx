@@ -44,7 +44,7 @@ const RecipeImageRotator = ({ recipe }: RecipeImageRotatorProps) => {
   };
 
   return (
-    <div className="sm:-order-1 sm:w-1/2">
+    <div className="sm:-order-1 sm:w-1/2 h-full">
       <div className="flex w-full sm:gap-4">
         <Image
           src={arrowLeftCircle}

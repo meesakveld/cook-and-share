@@ -10,6 +10,7 @@ type RecipeType = {
     images: ImageType[],
     ingredients: IngredientType[],
     directions: DifficultyType[],
+    comments: CommentType[],
     user: User,
 }
 
@@ -23,6 +24,13 @@ export type IngredientType = {
 export type DifficultyType = {
     description: string,
     step: number,
+}
+
+export type CommentType = {
+    comment: string,
+    documentId: string,
+    datePosted: string,
+    user: User,
 }
 
 export type ImageType = {

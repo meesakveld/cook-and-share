@@ -34,6 +34,16 @@ const query = gql`
                 lastname
                 documentId
             }
+            comments {
+                comment
+                documentId
+                datePosted
+                user {
+                    firstname
+                    lastname
+                    documentId
+                }
+            }
         }
     }
 `

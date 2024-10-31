@@ -36,9 +36,9 @@ export default async function Recipes({ params, searchParams }: Readonly<{ param
         "filters": {
             "categories": {
                 "or": categoryIdsFromUrl.map(categoryId => ({
-                        "documentId": {
-                            "contains": categoryId
-                        }
+                    "documentId": {
+                        "contains": categoryId
+                    }
                 }))
             }
         }
@@ -69,12 +69,12 @@ export default async function Recipes({ params, searchParams }: Readonly<{ param
                 </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 p-4">
-                {recipes.map((recipe: any) => (
-                    <Link key={recipe.documentId + '-link'} href={`/recipes/${recipe.documentId}`}>
-                        <RecipeCard recipe={recipe} />
-                    </Link>
-                ))}
+            <div className="mw p-4 w-full">
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+                    {recipes.map((recipe: any) => (
+                        <RecipeCard recipe={recipe} key={recipe.documentId + '-link'} />
+                    ))}
+                </div>
             </div>
 
         </div>
