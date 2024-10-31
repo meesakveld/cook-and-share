@@ -6,7 +6,9 @@ type ButtonProps = {
     color: 'beige' | 'red',
     
     // —— Optional props ——
+    minFontSize?: string,
     fontSize?: string,
+    maxFontSize?: string,
     className?: string,
     style?: React.CSSProperties,
 
@@ -18,15 +20,15 @@ type ButtonProps = {
     onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void
 }
 
-export default function Button({ children, function: buttonFunction, color, fontSize, className, style, href, target, onClick }: ButtonProps) {
+export default function Button({ children, function: buttonFunction, color, minFontSize = "2rem", fontSize, maxFontSize = "2.2rem", className, style, href, target, onClick }: ButtonProps) {
     const background = color === 'beige' ? 'bg-beige' : 'bg-red';
     const text = color === 'beige' ? 'text-red' : 'text-beige';
     const border = color === 'beige' ? 'border-red' : 'border-red';
     const hover = color === 'beige' ? 'hover:bg-red hover:text-beige' : 'hover:bg-beige hover:text-red hover:border-red';
     const styles: React.CSSProperties = {
         ...style,
-        fontSize: `clamp(1.5rem, ${fontSize ?? '3vw'}, ${fontSize ?? '3vw'})`,
-        lineHeight: `clamp(1.5rem, ${fontSize ?? '3vw'}, ${fontSize ?? '3vw'})`
+        fontSize: `clamp(${minFontSize}, ${fontSize ?? '3vw'}, ${maxFontSize})`,
+        lineHeight: `clamp(${minFontSize}, ${fontSize ?? '3vw'}, ${maxFontSize})`
     }
 
     const styleButton = `

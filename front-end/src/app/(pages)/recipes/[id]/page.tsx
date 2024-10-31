@@ -19,6 +19,7 @@ import Card from "@/components/ui/Card";
 
 // ——— Functions ———
 import dateFormatter from "@/functions/dateFormatter";
+import AddCommentToRecipeForm from "@/components/forms/AddCommentToRecipeForm";
 
 export default async function recipe({ params }: { params: { id: string } }) {
 
@@ -33,7 +34,7 @@ export default async function recipe({ params }: { params: { id: string } }) {
 
                     <div className="flex gap-2 sm:w-[70%]">
                         <Image className="aspect-auto w-8 justify-center" src={accImg} alt="account" />
-                        <Link href={`/users/${recipe.user.documentId}`}>
+                        <Link href={`/users/${recipe.user.documentId}`} className="hover:underline text-red">
                             <p className="text-red">{recipe.user.firstname} {recipe.user.lastname}</p>
                         </Link>
                     </div>
@@ -73,7 +74,7 @@ export default async function recipe({ params }: { params: { id: string } }) {
                 <Title>Instructions</Title>
 
                 <Card className="p-4">
-                    <ol className="flex flex-col gap-4 md:gap-8">
+                    <ol className="flex flex-col gap-4 md:gap-6">
                         {recipe.directions.sort((a, b) => a.step - b.step).map((direction, i) => (
                             <li key={direction.step + i} className="text-red list-none">
                                 <div className="flex gap-8 md:gap-16">
@@ -86,15 +87,15 @@ export default async function recipe({ params }: { params: { id: string } }) {
                 </Card>
             </section>
 
-            <section className="flex flex-col gap-4">
-                <Title>Comments</Title>
+            <section className="flex flex-col">
+                <Title id="comments">Comments</Title>
 
-                <div>
-                    {/* Add comment */}
+                <div className="sm:w-2/5">
+                    <AddCommentToRecipeForm recipe={recipe} />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-                    {recipe.comments.map((comment) => (
+                    {recipe.comments.sort((a, b) => new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime()).map((comment) => (
                         <Card key={comment.documentId} className="p-4 flex flex-col justify-between gap-4 h-full">
                             <div>
                                 <p>{comment.comment}</p>

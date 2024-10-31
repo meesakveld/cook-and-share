@@ -53,7 +53,7 @@ export default async function Recipes({ params, searchParams }: Readonly<{ param
             <Hero title="Share recipes" />
 
             <div className="mw p-4 w-full flex flex-col gap-4">
-                <div className="flex justify-between">
+                <div className="flex justify-between items-end">
                     <Title>Share recipes</Title>
 
                     <div className="flex gap-4">

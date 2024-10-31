@@ -34,7 +34,7 @@ const query = gql`
                 lastname
                 documentId
             }
-            comments {
+            comments(pagination: { limit: 999 }) {
                 comment
                 documentId
                 datePosted

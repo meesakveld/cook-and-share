@@ -1,5 +1,5 @@
-// import ... from '...'
+import addCommentToRecipe from './addCommentToRecipe';
 
-export default {
-  
+export {
+    addCommentToRecipe
 };

@@ -22,7 +22,7 @@ export default function InputTextArea({ id, label, color, placeholder, value, se
     const count = value?.length;
 
     return (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 relative flex-grow">
             <div className="flex justify-between">
                 <label
                     htmlFor={id}
@@ -80,7 +80,7 @@ export default function InputTextArea({ id, label, color, placeholder, value, se
             />
 
             {errorMessage &&
-                <span className={`text-sm font-openSansCondensed text-red`}>
+                <span className={`text-sm font-openSansCondensed text-red absolute -bottom-6 left-0`}>
                     {errorMessage}
                 </span>
             }

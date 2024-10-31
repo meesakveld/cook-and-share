@@ -38,7 +38,7 @@ export default function kFilterRecipeForm({ allCategories, categoryIdsFromUrl }:
                 placeholder="Choose a category or more"
             />
 
-            <Button color='red' function="button" fontSize="2.7vw" onClick={onClick}>Search</Button>
+            <Button color='red' function="button" onClick={onClick}>Search</Button>
         </form>
     )
 }
