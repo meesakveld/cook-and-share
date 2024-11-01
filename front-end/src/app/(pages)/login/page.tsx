@@ -1,8 +1,15 @@
 'use client';
-export default function login () {
-    
+
+// ——— Components ———
+import LoginForm from "@/components/forms/LoginForm";
+
+
+export default function login() {
+
 
     return (
-        <h1>Login!</h1>
+        <div className="mw p-4">
+            <LoginForm />
+        </div>
     )
 }

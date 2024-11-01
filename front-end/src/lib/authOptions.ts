@@ -1,123 +1,85 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import { StrapiErrorT } from "@/types/strapi/StrapiErrorT";
+import { StrapiLoginResponseT } from "@/types/strapi/User";
+import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-import GitHubProvider from "next-auth/providers/github";
-import { cookies } from "next/headers";
-
-type StrapiErrorT = {
-    error: {
-        message: string;
-    };
-};
-
-type StrapiLoginResponseT = {
-    jwt: string;
-    user: {
-        id: number;
-        username: string;
-        email: string;
-        blocked: boolean;
-        role: {
-            id: number;
-            name: "Authenticated" | "Admin";
-        };
-    };
-};
 
 export const authOptions: NextAuthOptions = {
     providers: [
         CredentialsProvider({
-            name: "Credentials",
+            name: 'email and password',
             credentials: {
                 identifier: {
-                    label: "Email",
-                    type: "email",
-                    placeholder: "user@example.com",
+                    label: 'Email or username *',
+                    type: 'text',
                 },
-                password: { label: "Password", type: "password" },
+                password: { label: 'Password *', type: 'password' },
             },
             async authorize(credentials) {
-                if (!credentials) {
-                    return null;
-                }
-            
-                const strapiResponse = await fetch(
-                    `${process.env.NEXT_PUBLIC_API_URL}/api/auth/local`,
-                    {
-                        method: "POST",
+                try {
+                    const strapiResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/local`, {
+                        method: 'POST',
                         headers: {
-                            "Content-Type": "application/json",
+                            'Content-Type': 'application/json',
                         },
                         body: JSON.stringify({
-                            identifier: credentials.identifier,
-                            password: credentials.password,
+                            identifier: credentials!.identifier,
+                            password: credentials!.password,
                         }),
-                    }
-                );
-            
-                const data: StrapiLoginResponseT = await strapiResponse.json();
-            
-                if (strapiResponse.ok && data.user && !data.user.blocked) {
-                    return {
-                        id: data.user.id.toString(),  // Convert `id` to string
-                        documentId: data.user.id,
-                        firstName: data.user.username.split(" ")[0],
-                        lastName: data.user.username.split(" ")[1] || "",
-                        email: data.user.email,
-                        username: data.user.username,
-                        strapiToken: data.jwt,
-                        role: {
-                            documentId: data.user.role.id,
-                            name: data.user.role.name as "Authenticated" | "Admin",
-                        },
-                    };
-                }
-                return null;
-            },
-        }),
-    ],
-    session: {
-        strategy: "jwt",
-    },
-    secret: process.env.NEXTAUTH_SECRET,
-    pages: {
-        signIn: "/login",
-    },
-    callbacks: {
-        async jwt({ token, user, account }) {
-            if (user) {
-                token.id = user.id;
-                token.role = user.role;
-            }
-
-            if (account && (account.provider === "google" || account.provider === "github")) {
-                try {
-                    const strapiResponse = await fetch(
-                        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/${account.provider}/callback?access_token=${account.access_token}`,
-                        { cache: "no-cache" }
-                    );
+                    });
 
                     if (!strapiResponse.ok) {
-                        const strapiError: StrapiErrorT = await strapiResponse.json();
-                        throw new Error(strapiError.error.message);
+                        const contentType = strapiResponse.headers.get("content-type");
+                        if (contentType === "application/json; charset=utf-8") {
+                            const data: StrapiErrorT = await strapiResponse.json();
+                            throw new Error(data.error.message);
+                        } else {
+                            throw new Error(strapiResponse.statusText);
+                        }
                     }
 
-                    const strapiLoginResponse: StrapiLoginResponseT = await strapiResponse.json();
-                    token.strapiToken = strapiLoginResponse.jwt;
-                    const cookieStore = cookies();
-                    cookieStore.set("next-auth.jwt-token", strapiLoginResponse.jwt);
+                    // Succes
+                    const data: StrapiLoginResponseT = await strapiResponse.json();
+                    if (strapiResponse.ok) {
+                        return {
+                            name: data.user.username,
+                            email: data.user.email,
+                            id: data.user.id.toString(),
+                            strapiUserId: data.user.id,
+                            blocked: data.user.blocked,
+                            strapiToken: data.jwt,
+                        }
+                    }
                 } catch (error) {
-                    throw error;
+                    throw error
                 }
             }
-
+        }),
+    ],
+    pages: {
+        signIn: '/login',
+        error: '/login',
+    },
+    session: {
+        strategy: 'jwt',
+    },
+    secret: process.env.NEXTAUTH_SECRET,
+    callbacks: {
+        async jwt({ token, trigger, account, user, session }) {
+            if (account) {
+                if (account.provider === "credentials") {
+                    token.strapiToken = user.strapiToken;
+                    token.strapiUserId = user.strapiUserId;
+                    token.provider = account.provider === "credentials" ? "local" : account.provider;
+                    token.blocked = user.blocked;
+                }
+            }
             return token;
         },
-        async session({ session, token }) {
-            if (session.user) {
-                session.user.documentId = token.id as number;
-                session.user.strapiToken = token.strapiToken as string;
-                session.user.role = token.role as { documentId: number; name: "Authenticated" | "Admin" };
-            }
+        async session({ token, session }) {
+            session.strapiToken = token.strapiToken;
+            session.provider = token.provider;
+            session.user.strapiUserId = token.strapiUserId;
+            session.user.blocked = token.blocked;
             return session;
         },
     },

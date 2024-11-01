@@ -1,18 +1,8 @@
 "use client";
 import { signIn } from "next-auth/react";
 
-export async function authenticate(_currentState: unknown, formData: FormData) {
-    try {
-        const formDataObj: { [key: string]: string } = {};
-        formData.forEach((value, key) => {
-            formDataObj[key] = value.toString();
-        });
-        await signIn('credentials', { ...formDataObj, callbackUrl: '/posts' });
-    } catch (error) {
-        if (error) {
-            return 'Something went wrong.'
-        }
-    }
+export function authenticate(identifier: string, password: string, callbackUrl: string) {
+    signIn('credentials', { identifier, password, callbackUrl });
 }
 
 export async function registrate(_currentState: unknown, formData: FormData) {

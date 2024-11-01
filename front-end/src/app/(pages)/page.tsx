@@ -41,7 +41,7 @@ export default async function Home() {
 						View all recipes
 					</Button>
 
-					<Button color='red' function='link' href='/recipes' style={{ borderColor: 'rgb(var(--color-red))' }}>
+					<Button color='red' function='link' href='/recipes/add' style={{ borderColor: 'rgb(var(--color-red))' }}>
 						Share a recipe
 					</Button>
 				</div>
