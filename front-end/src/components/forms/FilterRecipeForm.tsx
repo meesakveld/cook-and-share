@@ -8,7 +8,7 @@ import Category from "@/types/Category";
 import InputSelectMultiple from "./input-components/InputSelectMultiple"
 import Button from "../common/Button";
 
-export default function kFilterRecipeForm({ allCategories, categoryIdsFromUrl }: { allCategories: Category[], categoryIdsFromUrl: string[] }) {
+export default function FilterRecipeForm({ allCategories, categoryIdsFromUrl }: { allCategories: Category[], categoryIdsFromUrl: string[] }) {
     const [inputSelect, setInputSelect] = useState<Category[]>([])
 
     useEffect(() => {
