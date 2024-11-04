@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
                 },
                 password: { label: 'Password *', type: 'password' },
             },
-            async authorize(credentials) {
+            async authorize(credentials): Promise<any> {
                 try {
                     const strapiResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/auth/local`, {
                         method: 'POST',
