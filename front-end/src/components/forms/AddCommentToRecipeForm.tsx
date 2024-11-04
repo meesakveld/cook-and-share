@@ -33,7 +33,14 @@ export default function AddCommentToRecipeForm({ recipe, addCommentToRecipe }: A
         setError("");
 
         try {
-            await addCommentToRecipe({ comment: inputText, userId: recipe.user.documentId, recipeId: recipe.documentId });
+            const response = await addCommentToRecipe({ comment: inputText, userId: recipe.user.documentId, recipeId: recipe.documentId });
+            if (response === "Unauthorized") {
+                setRequestError("Unauthorized");
+                setLoading(false);
+                return;
+            }
+            setLoading(false);
+            setRequestError("");
             setInputText("");
         } catch (error: any) {
             setRequestError(error.message);

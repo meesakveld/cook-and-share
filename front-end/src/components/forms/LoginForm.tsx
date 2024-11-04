@@ -11,6 +11,8 @@ import InputText from "./input-components/InputText";
 import Button from "../common/Button";
 
 export default function Login() {
+    const [loading, setLoading] = useState(false);
+
     const getCallbackUrl = () => {
         const url = new URL(window.location.href);
         const callbackUrl = url.searchParams.get("callbackUrl");
@@ -39,16 +41,18 @@ export default function Login() {
 
     function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
+        setLoading(true);
 
         if (!data || !data.identifier || !data.password) {
             return null;
         }
 
         authenticate(data.identifier, data.password, getCallbackUrl());
+        setLoading(false);
     }
 
     return (
-        <Card color="red" className="p-4 flex flex-col gap-8 justify-between">
+        <Card color="red" className="p-4 flex flex-col gap-8 justify-between w-full" parentClassName={`w-full md:w-3/4 m-auto ${loading ? "loading" : ""}`}>
             <Title>Login</Title>
 
             <form className="flex flex-col gap-6 items-baseline" method="post" onSubmit={handleSubmit} >

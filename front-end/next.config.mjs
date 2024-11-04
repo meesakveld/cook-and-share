@@ -12,6 +12,7 @@ const nextConfig = {
     },
     env: {
         NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL,
+        API_TOKEN_AUTH: process.env.API_TOKEN_AUTH,
     }
 };
 

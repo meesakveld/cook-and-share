@@ -21,14 +21,20 @@ export async function addCommentToRecipe(data: addCommentToRecipeType) {
     const userStrapiUserId = user?.strapiUserId;
 
     if (!userStrapiUserId) {
-        return null;
+        return "Unauthorized";
     }
+
+    console.log({
+        comment: data.comment,
+        userId: userStrapiUserId,
+        recipeId: data.recipeId
+    })
 
     try {
         await graphqlRequest(addComment, {
             data: {
                 comment: data.comment,
-                userId: data.userId,
+                userId: userStrapiUserId,
                 recipeId: data.recipeId
             }
         });

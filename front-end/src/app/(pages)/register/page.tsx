@@ -4,10 +4,10 @@
 import Link from "next/link";
 
 // ——— Components ———
-import LoginForm from "@/components/forms/LoginForm";
+import RegisterForm from "@/components/forms/RegisterForm";
 import Hero from "@/components/layout/Hero";
 
-export default function login() {
+export default function register() {
 
     const getCallbackUrl = () => {
         const url = new URL(window.location.href);
@@ -17,12 +17,13 @@ export default function login() {
 
     return (
         <div className="flex flex-col gap-6">
-
-            <Hero title="Login" />
-            <p className="text-center">No account yet? <Link href={`/register?callbackUrl=${getCallbackUrl()}`} className="text-red hover:underline">Register here</Link>.</p>
+            
+            <Hero title="Register" />
+            <p className="text-center">Allready have an account? <Link href={`/login?callbackUrl=${getCallbackUrl()}`} className="text-red hover:underline">Login here</Link>.</p>
+    
 
             <div className="mw p-4 w-full">
-                <LoginForm />
+                <RegisterForm />
             </div>
         </div>
     )
