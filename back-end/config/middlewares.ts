@@ -13,6 +13,7 @@ export default [
             'strapi.io',
             'cook-and-share.onrender.com'
           ],
+          'media-src': ["'self'", 'data:', 'strapi.io', 'cook-and-share.onrender.com'],
         },
       }
     },
