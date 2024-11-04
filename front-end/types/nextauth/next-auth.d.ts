@@ -1,6 +1,5 @@
 import NextAuth, { DefaultSession } from 'next-auth';
 import { JWT } from 'next-auth/jwt';
-import { StrapiUserT } from './strapi/StrapiLogin';
 
 declare module 'next-auth' {
     // Returned by `useSession`, `getSession` and received as a prop on the `SessionProvider` React Context
@@ -17,18 +16,24 @@ declare module 'next-auth' {
      */
     interface User extends DefaultSession['user'] {
         // not setting this will throw ts error in authorize function
-        strapiUserId?: number;
+        strapiUserId?: string;
         strapiToken?: string;
         blocked?: boolean;
+        documentId?: string;
+        firstname?: string;
+        lastname?: string;
+        role?: 'Authenticated' | 'Public' | 'Admin'; 
     }
+
 }
 
 declare module 'next-auth/jwt' {
     // Returned by the `jwt` callback and `getToken`, when using JWT sessions
     interface JWT {
-        strapiUserId?: number;
+        strapiUserId?: string;
         blocked?: boolean;
         strapiToken?: string;
         provider?: 'local' | 'google';
+        role?: 'Authenticated' | 'Public' | 'Admin'; 
     }
 }

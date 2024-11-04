@@ -1,5 +1,7 @@
-import addCommentToRecipe from './addCommentToRecipe';
+import addComment from './addComment';
+import deleteComment from './deleteComment';
 
 export {
-    addCommentToRecipe
+    addComment,
+    deleteComment
 };

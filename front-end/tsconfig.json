@@ -24,6 +24,6 @@
       "@/types/*": ["./types/*"],
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/graphql/config/graphql_client.ts"],
   "exclude": ["node_modules"]
 }

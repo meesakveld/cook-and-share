@@ -1,32 +1,36 @@
-// middleware.ts
-
 import { withAuth } from "next-auth/middleware";
 import { NextRequest, NextResponse } from "next/server";
 
-// export function middleware(request: NextRequest) {
-//   console.log("Middleware function executed");
-//   return NextResponse.redirect(new URL('/home', request.url))
-// }
-
+// Define the protected routes
 export default withAuth(
     // Default handler
     function middleware(req) {
-        // You can add custom logic here if needed
-        console.log("Middleware function executed");
+        // console.log(` ⚑ [Middleware] (${req.method} ${req.nextUrl.pathname}) Default handler`);
     },
     {
         callbacks: {
             authorized: ({ req, token }) => {
-                // Protect all routes under /dashboard
-                if (req.nextUrl.pathname.startsWith("/recipes/add")) {
-                    console.log("Checking if user is authorized to access this route");
+                console.log(` ⚑ [Middleware] (${req.method} ${req.nextUrl.pathname}) AUTH: Checking for authorization`);
+
+                // Check if the requested path is in protectedRoutes
+                const isProtectedRoute = [
+                    "/recipes/add",
+                    "/recipes/edit",
+                    "/recipes/delete",
+                    "/account",
+                    "/dashboard",
+                ].some(route => req.nextUrl.pathname.startsWith(route));
+
+                if (isProtectedRoute) {
+                    console.log(` ⚑ [Middleware] (${req.method} ${req.nextUrl.pathname}) AUTH: Route is protected`);
                     if (!token) {
-                        console.error("No token found, user is not authorized");
+                        console.error(` ⚑ [Middleware] (${req.method} ${req.nextUrl.pathname}) AUTH: User is not authorized`);
                         return false;
                     }
+                    console.log(` ⚑ [Middleware] (${req.method} ${req.nextUrl.pathname}) AUTH: User is authorized`);
                     return true;
                 }
-                // Allow access to all other
+                // Allow access to all other routes
                 return true;
             },
         },
@@ -36,8 +40,10 @@ export default withAuth(
 // Specify the matcher for protected routes
 export const config = {
     matcher: [
-        "/recipes/add",
-        "/recipes/edit",
-        "/recipes/delete",
-    ],
+        '/recipes/add',
+        '/recipes/edit',
+        '/recipes/delete',
+        '/account',
+        '/dashboard',
+    ]
 };

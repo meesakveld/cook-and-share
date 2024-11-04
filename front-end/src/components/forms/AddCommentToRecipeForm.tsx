@@ -11,13 +11,15 @@ import { useState } from "react";
 import RecipeType from "@/types/Recipe";
 type AddCommentToRecipeFormProps = {
     recipe: RecipeType;
+    addCommentToRecipe: (data: { comment: string, userId: string, recipeId: string }) => Promise<any>;
 }
 
 
-export default function AddCommentToRecipeForm({ recipe }: AddCommentToRecipeFormProps) {
+export default function AddCommentToRecipeForm({ recipe, addCommentToRecipe }: AddCommentToRecipeFormProps) {
     const [inputText, setInputText] = useState<string>("");
     const [error, setError] = useState<string>("");
     const [loading, setLoading] = useState<boolean>(false);
+    const [requestError, setRequestError] = useState<string>("");
 
     const onSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
         ev.preventDefault();
@@ -28,22 +30,23 @@ export default function AddCommentToRecipeForm({ recipe }: AddCommentToRecipeFor
         }
 
         setLoading(true);
-        const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/recipes/${recipe.documentId}/comments`, {
-            method: "POST",
-            body: JSON.stringify({ comment: inputText, userId: "hx5q5gk59cj7ol15lp685o47" }),
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
-        if (response.status === 200) {
-            window.open(`/recipes/${recipe.documentId}#comments`, "_self");
-            window.location.reload();
+        setError("");
+
+        try {
+            await addCommentToRecipe({ comment: inputText, userId: recipe.user.documentId, recipeId: recipe.documentId });
+            setInputText("");
+        } catch (error: any) {
+            setRequestError(error.message);
         }
+
     }
 
     return (
-        <div>
+        <div className="flex flex-col gap-0">
+            { requestError && <p className="text-red-500 border-2 border-red p-2 rounded-md w-full text-center text-red mt-4">Error: {requestError}</p> }
+
             <form className={`flex gap-3 mt-4 mb-10 w-full items-end ${loading ? 'loading' : ''}`} onSubmit={onSubmit} {...loading && { disabled: true }}>
+
                 <InputTextArea
                     id="add-comment"
                     label="Review the recipe"

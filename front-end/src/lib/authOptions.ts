@@ -39,14 +39,26 @@ export const authOptions: NextAuthOptions = {
 
                     // Succes
                     const data: StrapiLoginResponseT = await strapiResponse.json();
+
+                    const stapiMeResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users?populate=role&filters[documentId]=${data.user.documentId}`, {
+                        method: 'GET',
+                        headers: {
+                            Authorization: `Bearer ${process.env.API_TOKEN}`,
+                        },
+                    });
+                    const dataMe = await stapiMeResponse.json();
+
                     if (strapiResponse.ok) {
                         return {
                             name: data.user.username,
+                            firstname: data.user.firstname,
+                            lastname: data.user.lastname,
                             email: data.user.email,
-                            id: data.user.id.toString(),
-                            strapiUserId: data.user.id,
+                            documentId: data.user.documentId,
+                            strapiUserId: data.user.documentId,
                             blocked: data.user.blocked,
                             strapiToken: data.jwt,
+                            role: dataMe[0].role.name,
                         }
                     }
                 } catch (error) {
@@ -71,6 +83,8 @@ export const authOptions: NextAuthOptions = {
                     token.strapiUserId = user.strapiUserId;
                     token.provider = account.provider === "credentials" ? "local" : account.provider;
                     token.blocked = user.blocked;
+                    token.documentId = user.documentId;
+                    token.role = user.role;
                 }
             }
             return token;
@@ -80,6 +94,7 @@ export const authOptions: NextAuthOptions = {
             session.provider = token.provider;
             session.user.strapiUserId = token.strapiUserId;
             session.user.blocked = token.blocked;
+            session.user.role = token.role; // Maak de rol van de gebruiker beschikbaar in de sessio
             return session;
         },
     },

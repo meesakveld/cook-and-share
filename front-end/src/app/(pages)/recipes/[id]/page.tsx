@@ -16,12 +16,19 @@ import accImg from "@/assets/icons/account_logged_in.svg";
 import RecipeImageRotator from '@/components/ui/RecipeImageRotator'
 import Title from "@/components/common/Title";
 import Card from "@/components/ui/Card";
-
-// ——— Functions ———
-import dateFormatter from "@/functions/dateFormatter";
+import CommentCard from "@/components/ui/CommentCard";
 import AddCommentToRecipeForm from "@/components/forms/AddCommentToRecipeForm";
 
+// ——— Actions ———
+import { deleteCommentAction, addCommentToRecipe } from "./actions";
+
+// ——— Auth ———
+import { authOptions } from "@/lib/authOptions";
+import { getServerSession } from "next-auth";
+
 export default async function recipe({ params }: { params: { id: string } }) {
+    const session = await getServerSession(authOptions);
+    const user = session?.user;
 
     const reponse = await graphqlRequest(getRecipe, { documentId: params.id });
     const recipe: RecipeType = reponse.recipe;
@@ -91,28 +98,12 @@ export default async function recipe({ params }: { params: { id: string } }) {
                 <Title id="comments">Comments</Title>
 
                 <div className="sm:w-2/5">
-                    <AddCommentToRecipeForm recipe={recipe} />
+                    <AddCommentToRecipeForm recipe={recipe} addCommentToRecipe={addCommentToRecipe} />
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
                     {recipe.comments.sort((a, b) => new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime()).map((comment) => (
-                        <Card key={comment.documentId} className="p-4 flex flex-col justify-between gap-4 h-full">
-                            <div>
-                                <p>{comment.comment}</p>
-                            </div>
-
-                            <div className="flex justify-between items-center text-red">
-                                <div className="flex gap-2">
-                                    <Image src={accImg} alt={comment.user.firstname + comment.user.lastname} className="aspect-auto w-8" />
-                                    <Link href={`/users/${comment.user.documentId}`} className="hover:underline">
-                                        <p>{comment.user.firstname} {comment.user.lastname}</p>
-                                    </Link>
-                                </div>
-                                <div>
-                                    <p className="opacity-50">{dateFormatter(comment.datePosted)}</p>
-                                </div>
-                            </div>
-                        </Card>
+                        <CommentCard key={comment.documentId} comment={comment} recipeId={recipe.documentId} user={user} onSubmitDelete={deleteCommentAction} />
                     ))}
                 </div>
             </section>

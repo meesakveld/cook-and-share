@@ -1,5 +1,9 @@
 'use server';
 import client from "./config/graphql_client";
+import settings from "./config/settings";
+
+import { getServerSession } from "next-auth";
+import { authOptions } from "./../lib/authOptions";
 
 /**
  * Send a request to the GraphQL server.
@@ -8,8 +12,13 @@ import client from "./config/graphql_client";
  * @returns The response from the server.
  */
 const graphqlRequest: any = async (query: any, variables: any = {}) => {
+    const session = await getServerSession(authOptions);
+    const token = session?.strapiToken;
+
     const uniqueQuery = `${query} #${Date.now()}`; // Add a unique identifier to the query to prevent caching.
-    const response = await client.request(uniqueQuery, variables);
+    const response = await client.request(uniqueQuery, variables, {
+        Authorization: `Bearer ${token || settings.API_TOKEN}`,
+    });
     return response;
 };
 
