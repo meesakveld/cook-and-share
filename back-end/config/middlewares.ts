@@ -5,19 +5,20 @@ export default [
     name: 'strapi::security',
     config: {
       contentSecurityPolicy: {
+        useDefaults: true,
         directives: {
-          'script-src': ["'self'", "'unsafe-inline'"],
-          'img-src': [
+          'connect-src': ["'self'", 'https:'],
+          'img-src': ["'self'", 'data:', 'blob:', 'market-assets.strapi.io', 'res.cloudinary.com'],
+          'media-src': [
             "'self'",
             'data:',
-            'strapi.io',
-            'cook-and-share.onrender.com',
             'blob:',
-
+            'market-assets.strapi.io',
+            'res.cloudinary.com',
           ],
-          'media-src': ["'self'", 'data:', 'strapi.io', 'cook-and-share.onrender.com', 'blob:'],
+          upgradeInsecureRequests: null,
         },
-      }
+      },
     },
   },
   'strapi::cors',
