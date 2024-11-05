@@ -11,9 +11,11 @@ export default [
             "'self'",
             'data:',
             'strapi.io',
-            'cook-and-share.onrender.com'
+            'cook-and-share.onrender.com',
+            'blob:',
+
           ],
-          'media-src': ["'self'", 'data:', 'strapi.io', 'cook-and-share.onrender.com'],
+          'media-src': ["'self'", 'data:', 'strapi.io', 'cook-and-share.onrender.com', 'blob:'],
         },
       }
     },
