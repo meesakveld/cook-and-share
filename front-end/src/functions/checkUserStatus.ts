@@ -1,13 +1,13 @@
 'use server';
 
-// ——— NPM Imports ———
-import { cookies } from 'next/headers';
+// ——— Next Auth ———
+import { getServerSession } from 'next-auth';
+import { authOptions } from '@/lib/authOptions';
 
 export default async function checkUserStatus(): Promise<boolean> {
     // Check if user is logged in
-    const cookieStore = cookies();
-    const sessionToken = cookieStore.get('next-auth.session-token');
-    const isLoggedIn = sessionToken ? true : false;
+    const session = await getServerSession(authOptions);
+    const isLoggedIn = session ? true : false;
 
     return isLoggedIn;
 }
