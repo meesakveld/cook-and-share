@@ -40,13 +40,13 @@ export const authOptions: NextAuthOptions = {
                     // Succes
                     const data: StrapiLoginResponseT = await strapiResponse.json();
 
-                    const stapiMeResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users?populate=role&filters[documentId]=${data.user.documentId}`, {
+                    const strapiMeResponse = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users?populate=role&filters[documentId]=${data.user.documentId}`, {
                         method: 'GET',
                         headers: {
                             Authorization: `Bearer ${process.env.API_TOKEN}`,
                         },
                     });
-                    const dataMe = await stapiMeResponse.json();
+                    const dataMe = await strapiMeResponse.json();
 
                     if (strapiResponse.ok) {
                         return {
