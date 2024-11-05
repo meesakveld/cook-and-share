@@ -59,7 +59,7 @@ const RecipeImageRotator = ({ recipe }: RecipeImageRotatorProps) => {
               className={`aspect-square absolute w-4/5 p-4 top-1/2 -translate-y-1/2 left-1/2 -translate-x-1/2 ${getRotationStyle(i)}`}
               style={{ zIndex: getZIndex(i) }}
             >
-              <Image
+              <img
                 className="w-full h-full object-cover rounded-[15px]"
                 src={process.env.NEXT_PUBLIC_API_URL + image.url}
                 alt={recipe.title}
