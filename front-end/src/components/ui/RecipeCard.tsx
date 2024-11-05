@@ -29,7 +29,7 @@ export default async function RecipeCard({ recipe, className }: RecipeCardProps)
     }
 
     return (
-        <Link href={`/recipes/${recipe.documentId}`} className={`bg-beige border-2 border-red rounded-[15px] p-3 flex flex-col gap-4 justify-between max-w-72 ${className ?? ""} mb-2 flex-shrink-0 h-full card-after-hover`}>
+        <Link href={`/recipes/${recipe.documentId}`} className={`bg-beige border-2 border-red rounded-[15px] p-3 flex flex-col gap-4 justify-between max-w-72 mb-2 flex-shrink-0 h-full card-after-hover ${className ?? ""}`}>
             <div className="flex flex-col gap-4">
                 <div className="relative">
                     <img

@@ -21,8 +21,8 @@ import { useState } from "react";
 type CommentCardProps = {
     comment: CommentType;
     recipeId: string;
-    user: User | undefined;
-    onSubmitDelete: (commentId: string, recipeId: string) => Promise<any>;
+    user?: User | undefined;
+    onSubmitDelete?: (commentId: string, recipeId: string) => Promise<any>;
 };
 
 
@@ -40,7 +40,9 @@ export default function CommentCard({ comment, recipeId, user, onSubmitDelete }:
 
         const commentId = ev.currentTarget.commentId.value;
         try {
-            await onSubmitDelete(commentId, recipeId);
+            if (onSubmitDelete) {
+                await onSubmitDelete(commentId, recipeId);
+            }
         } catch (error: any) {
             console.log(error.message);
         }

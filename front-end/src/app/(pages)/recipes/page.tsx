@@ -72,7 +72,7 @@ export default async function Recipes({ params, searchParams }: Readonly<{ param
             <div className="mw p-4 w-full">
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
                     {recipes.map((recipe: any) => (
-                        <RecipeCard recipe={recipe} key={recipe.documentId + '-link'} />
+                        <RecipeCard recipe={recipe} key={recipe.documentId + '-link'} className="flex-1 max-lg:max-w-full" />
                     ))}
                 </div>
             </div>

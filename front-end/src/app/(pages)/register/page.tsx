@@ -1,4 +1,4 @@
-'use client';
+'use server';
 
 // ——— Next.js ———
 import Link from "next/link";
@@ -7,12 +7,20 @@ import Link from "next/link";
 import RegisterForm from "@/components/forms/RegisterForm";
 import Hero from "@/components/layout/Hero";
 
-export default function register() {
+// ——— Next Auth ———
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/authOptions";
+import { redirect } from "next/navigation";
+
+export default async function register({ params, searchParams }: Readonly<{ params: any, searchParams: any }>) {
 
     const getCallbackUrl = () => {
-        const url = new URL(window.location.href);
-        const callbackUrl = url.searchParams.get("callbackUrl");
-        return callbackUrl ? callbackUrl : "/";
+        return searchParams.callbackUrl ? searchParams.callbackUrl : '/';
+    }
+
+    const session = await getServerSession(authOptions);
+    if (session) {
+        redirect("/");
     }
 
     return (
