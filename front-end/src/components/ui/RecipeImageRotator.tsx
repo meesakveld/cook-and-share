@@ -61,7 +61,7 @@ const RecipeImageRotator = ({ recipe }: RecipeImageRotatorProps) => {
             >
               <img
                 className="w-full h-full object-cover rounded-[15px]"
-                src={process.env.NEXT_PUBLIC_API_URL + image.url}
+                src={image.url}
                 alt={recipe.title}
                 width={800}
                 height={600}

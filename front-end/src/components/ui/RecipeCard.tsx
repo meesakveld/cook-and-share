@@ -33,7 +33,7 @@ export default async function RecipeCard({ recipe, className }: RecipeCardProps)
             <div className="flex flex-col gap-4">
                 <div className="relative">
                     <img
-                        src={process.env.NEXT_PUBLIC_API_URL + firstImage?.url}
+                        src={firstImage?.url}
                         alt={recipe.title}
                         className='w-full h-full object-cover aspect-video rounded-[15px] pointer-events-none'
                     />
