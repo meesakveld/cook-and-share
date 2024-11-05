@@ -52,7 +52,7 @@ const RecipeImageRotator = ({ recipe }: RecipeImageRotatorProps) => {
           className={`transition-opacity ${isSingleImage ? 'opacity-0 cursor-default' : 'opacity-100 cursor-pointer'}`}
           onClick={handleBeforeImage}
         />
-        <div className="flex-grow w-full aspect-square relative">
+        <div className="flex-grow w-[70vw] md:w-full aspect-square relative">
           {recipe.images.map((image, i) => (
             <div
               key={image.documentId + '-image'}
