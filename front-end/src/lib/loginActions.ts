@@ -17,11 +17,20 @@ type registerFormData = {
 export async function registrate(registerFormData: registerFormData, callbackUrl: string = "/") {
     try {
         // ———— Register the user ————
-        const registerReponse = await graphqlRequest(register, { input: {
-            email: registerFormData.email,
+        const registerReponse = await graphqlRequest(register, {
+            input: {
+                email: registerFormData.email,
+                password: registerFormData.password,
+                username: registerFormData.username,
+            }
+        });
+
+        // ———— Sign in the user ————
+        await signIn('credentials', {
+            identifier: registerFormData.email,
             password: registerFormData.password,
-            username: registerFormData.username,
-        }});
+            callbackUrl
+        });
 
         // ———— Add firstname and lastname to the user ————
         await graphqlRequest(updateUser, {
@@ -30,13 +39,6 @@ export async function registrate(registerFormData: registerFormData, callbackUrl
                 firstname: registerFormData.firstname,
                 lastname: registerFormData.lastname,
             }
-        }, process.env.API_TOKEN_AUTH);
-
-        // ———— Sign in the user ————
-        await signIn('credentials', {
-            identifier: registerFormData.email,
-            password: registerFormData.password,
-            callbackUrl
         });
 
     } catch (error: any) {
