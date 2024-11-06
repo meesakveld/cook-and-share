@@ -21,17 +21,24 @@ export default async function Search({ params, searchParams }: Readonly<{ params
             "or": [
                 {
                     "documentId": {
-                        "contains": searchQuery
+                        "containsi": searchQuery
                     }
                 },
                 {
                     "title": {
-                        "contains": searchQuery
+                        "containsi": searchQuery
                     }
                 },
                 {
                     "description": {
-                        "contains": searchQuery
+                        "containsi": searchQuery
+                    }
+                },
+                {
+                    "user": {
+                        "username": {
+                            "containsi": searchQuery
+                        }
                     }
                 }
             ]
