@@ -41,9 +41,7 @@ export default async function recipe({ params }: { params: { id: string } }) {
 
                     <div className="flex gap-2 sm:w-[70%]">
                         <Image className="aspect-auto w-8 justify-center" src={accImg} alt="account" />
-                        <Link href={`/users/${recipe.user.documentId}`} className="hover:underline text-red">
-                            <p className="text-red">{recipe.user.firstname} {recipe.user.lastname}</p>
-                        </Link>
+                        <p className="text-red">{recipe.user.firstname} {recipe.user.lastname}</p>
                     </div>
 
                     <p className="text-red w-[90%]">{recipe.description}</p>

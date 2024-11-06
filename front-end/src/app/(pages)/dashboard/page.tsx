@@ -16,6 +16,7 @@ import Title from "@/components/common/Title";
 // ——— Next Auth ———
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/authOptions";
+import Link from "next/link";
 
 export default async function Account() {
 
@@ -59,6 +60,7 @@ export default async function Account() {
             .filter(comment => comment.user.documentId === "hx5q5gk59cj7ol15lp685o47")
             .map(comment => ({
                 recipeId: recipe.documentId,
+                recipeTitle: recipe.title,
                 comment
             }))
     );
@@ -108,9 +110,16 @@ export default async function Account() {
                 </div>
 
                 <div className="w-full">
-                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div className="grid grid-cols-1 min-[450px]:grid-cols-2 gap-4 gap-y-6 sm:grid-cols-3 w-full">
                         {comments.sort((a, b) => new Date(b.comment.datePosted).getTime() - new Date(a.comment.datePosted).getTime()).map((comment) => (
-                            <CommentCard key={comment.comment.documentId} comment={comment.comment} recipeId={comment.recipeId} />
+                            <div>
+                                <Link href={`/recipes/${comment.recipeId}#comments`} className="flex flex-col gap-1 group">
+                                    <h3 className='font-manukaCondensed uppercase text-red text-3vw leading-[90%]'>{comment.recipeTitle}</h3>
+                                    <div className="group-hover:opacity-70 transition-opacity duration-200">
+                                        <CommentCard comment={comment.comment} recipeId={comment.recipeId} />
+                                    </div>
+                                </Link>
+                            </div>
                         ))}
                     </div>
                 </div>

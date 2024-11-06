@@ -39,15 +39,15 @@ export default async function RecipeCard({ recipe, className }: RecipeCardProps)
                     />
                 </div>
 
-                <h2 className='font-manukaCondensed uppercase text-red text-3vw leading-[90%]'>
+                <h3 className='font-manukaCondensed uppercase text-red text-3vw leading-[90%]'>
                     {recipe.title}
-                </h2>
+                </h3>
             </div>
 
             <div>
                 <div className="flex gap-6">
                     <div>
-                        <h3 className="uppercase text-red font-openSansCondensed font-normal">Difficulty</h3>
+                        <h4 className="uppercase text-red font-openSansCondensed font-normal">Difficulty</h4>
                         <div className="flex gap-[2px]">
                             <p className="hidden">{recipe.difficulty}/5</p>
                             {Array.from({ length: 5 }, (_, i) => (
@@ -57,14 +57,14 @@ export default async function RecipeCard({ recipe, className }: RecipeCardProps)
                     </div>
 
                     <div>
-                        <h3 className="uppercase text-red font-openSansCondensed font-normal">Total Time</h3>
+                        <h4 className="uppercase text-red font-openSansCondensed font-normal">Total Time</h4>
                         <p className="uppercase font-manukaCondensed text-2vw text-red">{makeTimePretty(totalTimeInMinutes)}</p>
                     </div>
 
                 </div>
 
                 <div>
-                    <h3 className="uppercase text-red font-openSansCondensed font-normal">By user</h3>
+                    <h4 className="uppercase text-red font-openSansCondensed font-normal">By user</h4>
                     <p className="uppercase font-manukaCondensed text-2vw text-red">{recipe.user.firstname} {recipe.user.lastname}</p>
                 </div>
 

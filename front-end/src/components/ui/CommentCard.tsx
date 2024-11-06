@@ -57,9 +57,7 @@ export default function CommentCard({ comment, recipeId, user, onSubmitDelete }:
             <div className="flex justify-between items-center text-red">
                 <div className="flex gap-2">
                     <Image src={accImg} alt={comment.user.firstname + comment.user.lastname} className="aspect-auto w-8" />
-                    <Link href={`/users/${comment.user.documentId}`} className="hover:underline">
-                        <p>{comment.user.firstname} {comment.user.lastname}</p>
-                    </Link>
+                    <p>{comment.user.firstname} {comment.user.lastname}</p>
                 </div>
                 <div className="flex gap-4 items-center">
                     <p className="opacity-50">{dateFormatter(comment.datePosted)}</p>

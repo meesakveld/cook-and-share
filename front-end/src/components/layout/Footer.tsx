@@ -44,7 +44,7 @@ export default function Footer() {
                         <nav className="flex flex-col md:flex-row md:flex-wrap max-md:gap-4 justify-between p-5">
                             {urls.map((url, i) => (
                                 <ul key={i} className="flex flex-col gap-1">
-                                    <h3 className="uppercase text-beige opacity-50">{url.title}</h3>
+                                    <p className="uppercase text-beige opacity-50">{url.title}</p>
                                     {url.links.map((link, i) => (
                                         <li key={i}>
                                             <Link href={link.href} className="text-beige hover:opacity-70 transition-opacity duration-200">{link.title}</Link>
@@ -52,7 +52,7 @@ export default function Footer() {
                                     ))}
                                 </ul>
                             ))}
-                            <Link href='/' className='max-[400px]:py-2'><Title color="red">Cook and Share</Title></Link>
+                            <Link href='/' className='max-[400px]:py-2'><Title color="red" hTag="p">Cook and Share</Title></Link>
                         </nav>
                     </Card>
                 </div>
