@@ -112,7 +112,7 @@ export default async function Account() {
                 <div className="w-full">
                     <div className="grid grid-cols-1 min-[450px]:grid-cols-2 gap-4 gap-y-6 sm:grid-cols-3 w-full">
                         {comments.sort((a, b) => new Date(b.comment.datePosted).getTime() - new Date(a.comment.datePosted).getTime()).map((comment) => (
-                            <div>
+                            <div key={comment.recipeId + '-link'}>
                                 <Link href={`/recipes/${comment.recipeId}#comments`} className="flex flex-col gap-1 group">
                                     <h3 className='font-manukaCondensed uppercase text-red text-3vw leading-[90%]'>{comment.recipeTitle}</h3>
                                     <div className="group-hover:opacity-70 transition-opacity duration-200">
