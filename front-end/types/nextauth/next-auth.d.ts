@@ -35,5 +35,7 @@ declare module 'next-auth/jwt' {
         strapiToken?: string;
         provider?: 'local' | 'google';
         role?: 'Authenticated' | 'Public' | 'Admin'; 
+        firstname?: string;
+        lastname?: string;
     }
 }

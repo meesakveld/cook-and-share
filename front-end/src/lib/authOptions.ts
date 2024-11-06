@@ -51,8 +51,8 @@ export const authOptions: NextAuthOptions = {
                     if (strapiResponse.ok) {
                         return {
                             name: data.user.username,
-                            firstname: data.user.firstname,
-                            lastname: data.user.lastname,
+                            firstname: dataMe[0].firstname,
+                            lastname: dataMe[0].lastname,
                             email: data.user.email,
                             documentId: data.user.documentId,
                             strapiUserId: data.user.documentId,
@@ -86,6 +86,8 @@ export const authOptions: NextAuthOptions = {
                     token.blocked = user.blocked;
                     token.documentId = user.documentId;
                     token.role = user.role;
+                    token.firstname = user.firstname;
+                    token.lastname = user.lastname;
                 }
             }
             return token;
@@ -96,6 +98,8 @@ export const authOptions: NextAuthOptions = {
             session.user.strapiUserId = token.strapiUserId;
             session.user.blocked = token.blocked;
             session.user.role = token.role; // Maak de rol van de gebruiker beschikbaar in de sessio
+            session.user.firstname = token.firstname;
+            session.user.lastname = token.lastname;
             return session;
         },
     },
