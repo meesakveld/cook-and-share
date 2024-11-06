@@ -81,7 +81,7 @@ export default async function Account() {
 
                     {recipes.length === 0 && (
                         <div>
-                            <p className="font-normal">You haven't shared any recipes yet.</p>
+                            <p className="font-normal">You have not shared any recipes yet.</p>
                         </div>
                     )}
                 </div>
@@ -104,7 +104,7 @@ export default async function Account() {
 
                     {recipes.length === 0 && (
                         <div>
-                            <p className="font-normal">You haven't commented on any recipes yet.</p>
+                            <p className="font-normal">You have not commented on any recipes yet.</p>
                         </div>
                     )}
                 </div>
