@@ -95,14 +95,19 @@ export default async function recipe({ params }: { params: { id: string } }) {
             <section className="flex flex-col">
                 <Title id="comments">Comments</Title>
 
-                <div className="sm:w-2/5">
-                    <AddCommentToRecipeForm recipe={recipe} addCommentToRecipe={addCommentToRecipe} />
-                </div>
+                { session && (
+                    <div className="sm:w-2/5">
+                        <AddCommentToRecipeForm recipe={recipe} addCommentToRecipe={addCommentToRecipe} />
+                    </div>
+                )}
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 mt-2">
                     {recipe.comments.sort((a, b) => new Date(b.datePosted).getTime() - new Date(a.datePosted).getTime()).map((comment) => (
                         <CommentCard key={comment.documentId} comment={comment} recipeId={recipe.documentId} user={user} onSubmitDelete={deleteCommentAction} />
                     ))}
+                    {recipe.comments.length === 0 && !session && (
+                        <p className="text-red">No comments yet. <Link href={`/login?redirect=/recipes/${recipe.documentId}`} className="underline">Log in</Link> to be the first to comment!</p>
+                    )}
                 </div>
             </section>
 
