@@ -2,9 +2,6 @@
 // ——— GraphQL ———
 import graphqlRequest, { getRecipes } from "@/graphql";
 
-// ——— Next.js ———
-import Link from "next/link";
-
 // ——— Types ———
 import Recipe from "@/types/Recipe";
 
