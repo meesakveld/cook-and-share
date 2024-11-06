@@ -20,7 +20,7 @@ export default async function Home() {
 	return (
 		<div className="flex flex-col gap-12">
 			<div>
-				<Hero title="Share recipes, And Inspire Others" maxFontSize="14vw" />
+				<Hero title="Share recipes, And Inspire Others" maxFontSize="15vw" />
 
 				<Button color='beige' function='link' style={{ display: 'block', width: 'fit-content', margin: 'auto' }} href='#share-recipes'>Start to share</Button>
 			</div>

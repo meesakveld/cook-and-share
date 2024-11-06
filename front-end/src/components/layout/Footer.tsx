@@ -13,9 +13,9 @@ export default function Footer() {
     const urls = [
         {
             title: 'Share recipes', links: [
-                { title: 'Recipes', href: '/recipes/' },
-                { title: 'My recipes', href: '/dashboard/my-recipes' },
-                { title: 'Favourite recipes', href: '/dashboard/favourites' }
+                { title: 'Recipes', href: '/recipes' },
+                { title: 'Dashboard', href: '/dashboard' },
+                { title: 'Search', href: '/search' },
             ]
         },
         {

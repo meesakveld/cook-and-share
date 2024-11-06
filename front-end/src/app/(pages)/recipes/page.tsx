@@ -57,7 +57,7 @@ export default async function Recipes({ params, searchParams }: Readonly<{ param
                     <Title>Share recipes</Title>
 
                     <div className="flex gap-4">
-                        <Button color='beige' function='link'>Search</Button>
+                        <Button color='beige' function='link' href="/search">Search</Button>
                         <Button color='red' function='link' href="/recipes/add" style={{ borderColor: 'rgb(var(--color-red))' }}>Share a recipe</Button>
                     </div>
                 </div>
