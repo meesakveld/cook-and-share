@@ -20,16 +20,16 @@ export default function Footer() {
         },
         {
             title: 'Customer service', links: [
-                { title: 'FAQ', href: '/faq' },
-                { title: 'Contact Us', href: '/contact' },
-                { title: 'Developer info', href: '/developer-info' }
+                { title: 'FAQ', href: '#' },
+                { title: 'Contact Us', href: '#' },
+                { title: 'Developer', href: '/developer' }
             ]
         },
         {
             title: 'Legal', links: [
-                { title: 'Privacy Policy', href: '/privacy-policy' },
-                { title: 'Terms & Conditions', href: '/terms-and-conditions' },
-                { title: 'Cookie Policy', href: '/cookie-policy' }
+                { title: 'Privacy Policy', href: '#' },
+                { title: 'Terms & Conditions', href: '#' },
+                { title: 'Cookie Policy', href: '#' }
             ]
         },
     ]
