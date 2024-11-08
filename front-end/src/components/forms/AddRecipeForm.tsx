@@ -4,21 +4,22 @@
 import { useState } from 'react';
 
 // ——— Components ———
-import InputText from './input-components/InputText';
-import InputTextArea from './input-components/InputTextArea';
-import InputSelectMultiple from './input-components/InputSelectMultiple';
+import InputText from '@/components/forms/input-components/InputText';
+import InputTextArea from '@/components/forms/input-components/InputTextArea';
+import InputSelectMultiple from '@/components/forms/input-components/InputSelectMultiple';
+import InputSelectOneFromMultiple from '@/components/forms/input-components/InputSelectOneFromMultiple';
+import Title from '@/components/common/Title';
+import Button from '@/components/common/Button';
 
 // ——— Types ———
-import { DirectionType as Direction, IngredientType as Ingredient } from '@/types/Recipe';
+import RecipeType, { DirectionType as Direction, IngredientType as Ingredient } from '@/types/Recipe';
 import Category from '@/types/Category';
-import InputSelectOneFromMultiple from './input-components/InputSelectOneFromMultiple';
-import Title from '../common/Title';
-import Button from '../common/Button';
+import { addRecipeProps } from '@/app/(pages)/recipes/add/actions';
 
 type RecipeFormProps = {
     title: string,
     description: string,
-    categories: string[],
+    categories: { name: string, documentId: string }[],
     difficulty: { name: string, value: number },
     totalTime: { name: '5' | '15' | '30' | '45' | '60' | '60+', value: "5" | "15" | "30" | "45" | "60" | "60+" },
     images: string[],
@@ -28,9 +29,10 @@ type RecipeFormProps = {
 
 type AddRecipeFormProps = {
     categories: Category[]
+    addRecipeFunction: ({ title, description, ingredients, difficulty, totalTime, categories, directions, images }: addRecipeProps) => Promise<{ data?: RecipeType, error?: string } | undefined>
 }
 
-export default function AddRecipeForm({ categories }: AddRecipeFormProps) {
+export default function AddRecipeForm({ categories, addRecipeFunction }: AddRecipeFormProps) {
     const initialFormState: RecipeFormProps = {
         title: '',
         description: '',
@@ -79,6 +81,20 @@ export default function AddRecipeForm({ categories }: AddRecipeFormProps) {
         setRecipe({ ...recipe, directions: newDirections })
     }
 
+    const handleAddRecipe = async () => {
+        const response = await addRecipeFunction({
+            title: recipe.title,
+            description: recipe.description,
+            ingredients: recipe.ingredients,
+            difficulty: recipe.difficulty.value,
+            totalTime: recipe.totalTime.value,
+            categories: recipe.categories.map(category => category.documentId),
+            directions: recipe.directions,
+            images: recipe.images,
+        })
+        console.log(response)
+    }
+
     return (
         <form className='border-2 border-red p-4 md:p-6 rounded-[15px]'>
 
@@ -114,7 +130,7 @@ export default function AddRecipeForm({ categories }: AddRecipeFormProps) {
                                 id="categories"
                                 label="Categories"
                                 values={recipe.categories}
-                                setValue={(values: string[]) => setRecipe({ ...recipe, categories: values })}
+                                setValue={(values: { name: string, documentId: string }[]) => setRecipe({ ...recipe, categories: values })}
                                 color='red'
                                 nameAndValue={{ name: 'name', value: 'documentId' }}
                                 options={categories}
@@ -252,7 +268,7 @@ export default function AddRecipeForm({ categories }: AddRecipeFormProps) {
 
                 </div>
 
-                <Button function='button' color='red' onClick={() => {}}>Add recipe</Button>
+                <Button function='button' color='red' onClick={(ev) => {ev.preventDefault(); handleAddRecipe()}}>Add recipe</Button>
 
             </div>
         </form>

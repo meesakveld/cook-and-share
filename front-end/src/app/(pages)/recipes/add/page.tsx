@@ -2,6 +2,9 @@
 // ——— GraphQL ———
 import graphqlRequest, { getCategories } from '@/graphql';
 
+// ——— Actions ———
+import addRecipeFunc from './actions';
+
 // ——— Components ———
 import AddRecipeForm from "@/components/forms/AddRecipeForm";
 
@@ -11,7 +14,7 @@ export default async function addRecipe() {
 
     return (
         <div className='mw p-4'>
-            <AddRecipeForm categories={categories} />
+            <AddRecipeForm categories={categories} addRecipeFunction={addRecipeFunc} />
         </div>
     )
 }
