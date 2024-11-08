@@ -1,6 +1,6 @@
 "use client";
 import graphqlRequest, { getUsersDocumentIds, register, updateUser } from "@/graphql";
-import { signIn } from "next-auth/react";
+import { signIn, signOut } from "next-auth/react";
 
 export function authenticate(identifier: string, password: string, callbackUrl: string) {
     signIn('credentials', { identifier, password, callbackUrl });
@@ -55,7 +55,10 @@ export async function authenticateThirdParty(method: "github" | "google") {
     } catch (error) {
         if (error) {
             return 'Something went wrong.'
-
         }
     }
+}
+
+export async function logout() {
+    await signOut({ callbackUrl: '/' });
 }

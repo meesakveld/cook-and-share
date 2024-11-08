@@ -1,12 +1,15 @@
 'use server';
 
+// ——— Components ———
+import Button from "@/components/common/Button";
 import Title from "@/components/common/Title";
-// ——— Next.js ———
+import LogoutForm from "@/components/forms/LogoutForm";
 import Hero from "@/components/layout/Hero";
 import Card from "@/components/ui/Card";
 
 // ——— Auth ———
 import { authOptions } from "@/lib/authOptions";
+import { logout } from "@/lib/loginActions";
 import { getServerSession } from "next-auth";
 
 export default async function Account() {
@@ -20,7 +23,11 @@ export default async function Account() {
             <Hero title="Account" />
 
             <div className="mw p-4 w-full flex flex-col gap-4">
-                <Title>Your personal information</Title>
+                <div className="flex justify-between items-baseline">
+                    <Title>Your personal information</Title>
+
+                    <LogoutForm />
+                </div>
 
                 <Card className="p-4">
 
