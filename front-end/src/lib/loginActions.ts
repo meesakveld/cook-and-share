@@ -25,13 +25,6 @@ export async function registrate(registerFormData: registerFormData, callbackUrl
             }
         });
 
-        // ———— Sign in the user ————
-        await signIn('credentials', {
-            identifier: registerFormData.email,
-            password: registerFormData.password,
-            callbackUrl
-        });
-
         // ———— Add firstname and lastname to the user ————
         await graphqlRequest(updateUser, {
             updateUsersPermissionsUserId: registerReponse.register.user.id,
@@ -39,7 +32,14 @@ export async function registrate(registerFormData: registerFormData, callbackUrl
                 firstname: registerFormData.firstname,
                 lastname: registerFormData.lastname,
             }
+        }, registerReponse.register.jwt);
+
+        // ———— Sign in the user ————
+        await signIn('credentials', {
+            identifier: registerFormData.email,
+            password: registerFormData.password,
         });
+
 
     } catch (error: any) {
         return {
