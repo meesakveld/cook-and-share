@@ -179,7 +179,9 @@ export default function AddRecipeForm({ categories, addRecipeFunction }: AddReci
 
                         </div>
 
-                        <div className='w-full md:w-5/12'>
+                        <div className='w-full md:w-5/12 flex flex-col gap-2'>
+                            <p className='block text-sm font-openSansCondensed text-red'>Images</p>
+
                             <input accept='image/*' type='file' onChange={async (e) => {
                                 const files = e.target.files;
                                 if (files) {
@@ -194,9 +196,14 @@ export default function AddRecipeForm({ categories, addRecipeFunction }: AddReci
                                     setRecipe({ ...recipe, images: base64Images });
                                 }
                             }} multiple />
-                            {recipe.images.map((image, index) => (
-                                <img key={index} src={image} alt={`Image ${index}`} />
-                            ))}
+
+                            <div className="grid grid-cols-3 gap-4 mt-4">
+                                {recipe.images.map((image, index) => (
+                                    <div key={index} className="rounded-lg overflow-hidden border border-red">
+                                        <img src={image} alt={`Image ${index}`} className="w-full h-full object-cover" />
+                                    </div>
+                                ))}
+                            </div>
                         </div>
 
                     </div>
