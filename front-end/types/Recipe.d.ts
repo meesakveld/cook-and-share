@@ -11,7 +11,7 @@ type RecipeType = {
     ingredients: IngredientType[],
     directions: DirectionType[],
     comments: CommentType[],
-    user: User,
+    user: User
 }
 
 export default RecipeType
