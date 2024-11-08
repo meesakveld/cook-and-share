@@ -9,7 +9,7 @@ type RecipeType = {
     totalTime: '5' | '15' | '30' | '45' | '60' | '60+',
     images: ImageType[],
     ingredients: IngredientType[],
-    directions: DifficultyType[],
+    directions: DirectionType[],
     comments: CommentType[],
     user: User,
 }
@@ -21,7 +21,7 @@ export type IngredientType = {
     amount: string,
 }
 
-export type DifficultyType = {
+export type DirectionType = {
     description: string,
     step: number,
 }

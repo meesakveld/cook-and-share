@@ -43,7 +43,7 @@ export default function InputSelectMultiple({ id, label, nameAndValue, options, 
                     font-normal
                     p-1 
                     relative
-                    ${color === 'beige' ? 'border-2 border-red' : ''}
+                    ${color === 'beige' ? 'border lg:border-2 border-red' : ''}
                     ${ !disabled ? 'cursor-pointer' : 'cursor-not-allowed'}
                 `}
                 onClick={(ev) => {

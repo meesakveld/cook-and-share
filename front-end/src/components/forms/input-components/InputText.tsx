@@ -26,31 +26,33 @@ export default function InputText({ id, name, label, color, textColor, type = "t
     const count = value?.length;
 
     return (
-        <div className="flex flex-col gap-2">
-            <div className="flex justify-between">
-                <label
-                    htmlFor={id}
-                    className={`block text-sm font-openSansCondensed text-${textColorValue}`}
-                >{label} {required ? '*' : ''}</label>
+        <div className="flex flex-col gap-2 w-full">
+            { (label || maxLength || minLength) && (
+                <div className="flex justify-between">
+                    <label
+                        htmlFor={id}
+                        className={`block text-sm font-openSansCondensed text-${textColorValue}`}
+                    >{label} {required ? '*' : ''}</label>
 
-                { maxLength && !minLength &&
-                    <span className={`text-sm font-openSansCondensed text-${textColorValue}`}>
-                        {count === undefined ? maxLength : maxLength - count}
-                    </span>
-                }
+                    {maxLength && !minLength &&
+                        <span className={`text-sm font-openSansCondensed text-${textColorValue}`}>
+                            {count === undefined ? maxLength : maxLength - count}
+                        </span>
+                    }
 
-                { minLength && !maxLength &&
-                    <span className={`text-sm font-openSansCondensed text-${textColorValue}`}>
-                        {count === undefined ? minLength : (count < minLength ? -minLength + count : '')}
-                    </span>
-                }
+                    {minLength && !maxLength &&
+                        <span className={`text-sm font-openSansCondensed text-${textColorValue}`}>
+                            {count === undefined ? minLength : (count < minLength ? -minLength + count : '')}
+                        </span>
+                    }
 
-                { minLength && maxLength &&
-                    <span className={`text-sm font-openSansCondensed text-${textColorValue}`}>
-                        {count === undefined ? `${minLength}/${maxLength}` : (count < minLength ? -minLength + count : maxLength - count)}
-                    </span>
-                }
-            </div>
+                    {minLength && maxLength &&
+                        <span className={`text-sm font-openSansCondensed text-${textColorValue}`}>
+                            {count === undefined ? `${minLength}/${maxLength}` : (count < minLength ? -minLength + count : maxLength - count)}
+                        </span>
+                    }
+                </div>
+            )}
 
             <input
                 id={id}
@@ -76,7 +78,7 @@ export default function InputText({ id, name, label, color, textColor, type = "t
                     bg-${color}
                     text-${invertedColor}
                     font-normal
-                    ${color === 'beige' ? 'border-2 border-red' : ''}
+                    ${color === 'beige' ? 'border lg:border-2 border-red' : ''}
 
                     focus:outline-none
                     placeholder-text-${invertedColor}
@@ -84,7 +86,7 @@ export default function InputText({ id, name, label, color, textColor, type = "t
                 `}
             />
 
-            { errorMessage &&
+            {errorMessage &&
                 <span className={`text-sm font-openSansCondensed text-${textColorValue}`}>
                     {errorMessage}
                 </span>

@@ -50,6 +50,7 @@ export default function InputTextArea({ id, label, color, placeholder, value, se
 
             <textarea
                 id={id}
+                name={id}
                 placeholder={placeholder}
                 value={value}
                 onChange={(ev) => {
@@ -71,7 +72,7 @@ export default function InputTextArea({ id, label, color, placeholder, value, se
                     bg-${color}
                     text-${invertedColor}
                     font-normal
-                    ${color === 'beige' ? 'border-2 border-red' : ''}
+                    ${color === 'beige' ? 'border lg:border-2 border-red' : ''}
 
                     focus:outline-none
                     placeholder-text-${invertedColor}
