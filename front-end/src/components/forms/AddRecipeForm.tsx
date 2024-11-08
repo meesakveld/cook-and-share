@@ -86,7 +86,7 @@ export default function AddRecipeForm({ categories }: AddRecipeFormProps) {
 
                 <div className='flex flex-col gap-4'>
 
-                    <h1 className='font-manuka uppercase text-3vw text-red'>Add a recipe</h1>
+                    <h1 className='font-manuka uppercase text-3vw text-red'>Share a recipe</h1>
 
                     <div className='flex flex-col md:flex-row gap-6 w-full'>
 
