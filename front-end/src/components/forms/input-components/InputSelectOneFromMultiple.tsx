@@ -30,7 +30,7 @@ export default function InputSelectOneFromMultiple({ id, label, nameAndValue, op
                 {options.map((option, index) => (
                     <p
                         key={index}
-                        className={`py-1 px-3 md:px-4 rounded-[6px] text-center flex flex-col justify-center transition-all duration-200 ${checkIfSelected(option) ? `bg-${invertedColor} opacity-100 text-${color}` : `bg-${color} opacity-50 text-${invertedColor}`}`}
+                        className={`py-1 px-3 md:px-4 rounded-[6px] text-center flex flex-col justify-center transition-all duration-200 ${checkIfSelected(option) ? `bg-${invertedColor} opacity-100 text-${color}` : `bg-${color} hover:bg-${invertedColor} hover:text-${color} opacity-50 text-${invertedColor}`}`}
                         onClick={() => {
                             setValue && setValue(option)
                         }}
