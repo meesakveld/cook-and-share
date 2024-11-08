@@ -1,6 +1,6 @@
 type Category = {
     documentId: string,
-    name: string,
+    name: string
 }
 
 export default Category
