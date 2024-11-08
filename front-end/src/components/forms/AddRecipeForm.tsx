@@ -15,6 +15,7 @@ import Button from '@/components/common/Button';
 import RecipeType, { DirectionType as Direction, IngredientType as Ingredient } from '@/types/Recipe';
 import Category from '@/types/Category';
 import { addRecipeProps } from '@/app/(pages)/recipes/add/actions';
+import convertFileToBase64 from '@/utils/convertFileToBase64';
 
 type RecipeFormProps = {
     title: string,
@@ -92,7 +93,13 @@ export default function AddRecipeForm({ categories, addRecipeFunction }: AddReci
             directions: recipe.directions,
             images: recipe.images,
         })
-        console.log(response)
+        if (response?.error) {
+            console.error(response.error)
+        }
+        const newRecipeDocumentId = response?.data?.documentId
+        if (newRecipeDocumentId) {
+            window.location.href = `/recipes/${newRecipeDocumentId}`
+        }
     }
 
     return (
@@ -173,7 +180,23 @@ export default function AddRecipeForm({ categories, addRecipeFunction }: AddReci
                         </div>
 
                         <div className='w-full md:w-5/12'>
-                            <p>Image uploading</p>
+                            <input accept='image/*' type='file' onChange={async (e) => {
+                                const files = e.target.files;
+                                if (files) {
+                                    const base64Images: string[] = [];
+                                    const fileArray = Array.from(files);
+
+                                    for (const file of fileArray) {
+                                        const base64: string = await convertFileToBase64(file);
+                                        base64Images.push(base64);
+                                    }
+
+                                    setRecipe({ ...recipe, images: base64Images });
+                                }
+                            }} multiple />
+                            {recipe.images.map((image, index) => (
+                                <img key={index} src={image} alt={`Image ${index}`} />
+                            ))}
                         </div>
 
                     </div>
@@ -268,7 +291,7 @@ export default function AddRecipeForm({ categories, addRecipeFunction }: AddReci
 
                 </div>
 
-                <Button function='button' color='red' onClick={(ev) => {ev.preventDefault(); handleAddRecipe()}}>Add recipe</Button>
+                <Button function='button' color='red' onClick={(ev) => { ev.preventDefault(); handleAddRecipe() }}>Add recipe</Button>
 
             </div>
         </form>

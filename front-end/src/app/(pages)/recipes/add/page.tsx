@@ -9,7 +9,12 @@ import addRecipeFunc from './actions';
 import AddRecipeForm from "@/components/forms/AddRecipeForm";
 
 export default async function addRecipe() {
-    const categoryResponse = await graphqlRequest(getCategories)
+    const categoryVariables = {
+        "pagination": {
+            "limit": -1,
+        }
+    }
+    const categoryResponse = await graphqlRequest(getCategories, categoryVariables)
     const categories = categoryResponse.categories
 
     return (

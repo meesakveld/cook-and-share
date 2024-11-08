@@ -14,7 +14,7 @@ import Card from "@/components/ui/Card";
 import { CommentType } from "@/types/Recipe";
 
 // ——— Functions ———
-import dateFormatter from "@/functions/dateFormatter";
+import dateFormatter from "@/utils/dateFormatter";
 import { User } from "next-auth";
 import { useState } from "react";
 

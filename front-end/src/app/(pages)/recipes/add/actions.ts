@@ -42,13 +42,15 @@ export default async function addRecipe({ title, description, ingredients, diffi
         datePosted: new Date().toISOString()
     };
 
-    console.log(recipe);
-
     try {
         const response = await graphqlRequest(addRecipeMutation, { data: recipe });
-        revalidatePath(`/recipes/${response.addRecipe.documentId}`);
+        if (response.errors) {
+            console.log(response.errors);
+            return { error: 'An error occurred while adding the recipe' }
+        }
+        return { data: response.addRecipe }
     } catch (error) {
-        console.error(error);
+        console.log(error);
         return { error: 'An error occurred while adding the recipe' }
     }
 

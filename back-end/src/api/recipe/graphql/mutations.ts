@@ -1,3 +1,5 @@
+import convertBase64ToBlob from "../../../../utils/convertBase64ToBlob";
+
 export default {
   // This is your custom upsert mutation
   async addRecipe(parent, args, context) {
@@ -16,13 +18,10 @@ export default {
     const imageIds = [];
     if (images && images.length > 0) {
       for (const image of images) {
-        // Ensure image is in Blob format
-        const response = await fetch(image);
-        const blob = await response.blob();
-        
+        const { blob, mimeType } = convertBase64ToBlob(image);
         const formData = new FormData();
-        formData.append('files', blob, `image-${Date.now()}.png`); // You may want to customize the file name
-        
+        formData.append('files', blob, `image.${Date.now()}.${mimeType.split('/')[1]}`);
+
         const uploadedImage = await fetch(`${process.env.STRAPI_API_URL}/upload`, {
           method: 'POST',
           headers: {

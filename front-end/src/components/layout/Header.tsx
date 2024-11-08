@@ -10,7 +10,7 @@ import Title from '@/components/common/Title';
 // ——— Assets ———
 import loggedInIcon from '@/assets/icons/account_logged_in.svg';
 import notLoggedInIcon from '@/assets/icons/account_not_logged_in.svg';
-import checkUserStatus from '@/functions/checkUserStatus';
+import checkUserStatus from '@/utils/checkUserStatus';
 
 export default async function Header() {
     const userIsLoggedIn: boolean = await checkUserStatus();
