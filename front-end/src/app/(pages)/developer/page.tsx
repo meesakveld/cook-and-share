@@ -33,6 +33,23 @@ export default function Developer() {
                     </Card>
                 </div>
 
+                {/* Testing */}
+                <div className="flex flex-col gap-4">
+                    <Title>Testing</Title>
+                    <Card className="p-4">
+                        <p>For testing i've used the following tools in the front-end</p>
+                        <ul className="list-disc ml-4">
+                            <li>jest</li>
+                            <li>jest-environment-jsdom</li>
+                            <li>ts-node</li>
+                            <li>@testing-library/dom</li>
+                            <li>@testing-library/react</li>
+                            <li>@testing-library/jest-dom</li>
+                        </ul>
+                        <p>I've tested visual components as well as logic functions in the front-end.</p>
+                    </Card>
+                </div>
+
                 {/* Installation */}
                 <div className="flex flex-col gap-4">
                     <Title>Installation</Title>
